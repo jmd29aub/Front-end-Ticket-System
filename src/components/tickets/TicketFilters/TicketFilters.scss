@@ -1,0 +1,55 @@
+@use "@/styles/variables" as *;
+
+.ticket-filters {
+  margin-top: 32px;
+  min-height: 56px;
+  background-color: $color-surface;
+  border: $card-border;
+  border-radius: $card-radius;
+  padding: $space-sm $space-md;
+  display: grid;
+  grid-template-columns: 1.7fr 1fr 1fr 1fr 1.15fr;
+  gap: $space-sm;
+  box-sizing: border-box;
+
+  select {
+    height: 38px;
+    border: 1px solid #cbd5e1;
+    border-radius: $radius-md;
+    padding: 0 34px 0 13px;
+    color: $color-main-text;
+    background-color: $color-primary;
+    font-size: 13px;
+    font-weight: 600;
+    outline: none;
+    cursor: pointer;
+  }
+
+  &__search {
+    height: 38px;
+    border: 1px solid #cbd5e1;
+    border-radius: $radius-md;
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    padding: 0 $space-md;
+    box-sizing: border-box;
+
+    input {
+      width: 100%;
+      border: none;
+      outline: none;
+      color: $color-main-text;
+      font-size: 13px;
+      min-width: 0;
+    }
+  }
+}
+
+@media (max-width: 1000px) {
+  .ticket-filters {
+    grid-template-columns: 1fr;
+    height: auto;
+    gap: $space-md;
+  }
+}

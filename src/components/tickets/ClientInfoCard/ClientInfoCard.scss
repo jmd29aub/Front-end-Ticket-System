@@ -1,0 +1,70 @@
+@use "@/styles/variables" as *;
+
+.client-info-card {
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+
+    h3 {
+      margin: 0;
+      color: $color-main-text;
+      font-size: 17px;
+      font-weight: 800;
+    }
+  }
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba($color-secondary, 0.12);
+    color: $color-secondary;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  &__list {
+    margin-top: $space-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 105px 1fr;
+    align-items: center;
+    gap: $space-sm;
+  }
+
+  &__label {
+    color: $color-secondary-text;
+    font-size: $font-size-xs;
+    font-weight: 700;
+  }
+
+  &__text {
+    color: $color-secondary-text;
+    font-size: 10px;
+    font-weight: 800;
+    text-align: right;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+}
+
+@media (max-width: 700px) {
+  .client-info-card {
+    &__row {
+      grid-template-columns: 1fr;
+      gap: $space-xs;
+    }
+
+    &__text {
+      text-align: left;
+    }
+  }
+}

@@ -1,0 +1,38 @@
+@use "@/styles/variables" as *;
+
+.app-textarea {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+
+  &__label {
+    font-size: 12px;
+    font-weight: 700;
+    color: $color-main-text;
+  }
+
+  &__required {
+    color: $color-danger;
+  }
+
+  &__field {
+    width: 100%;
+    min-height: 86px;
+    resize: none;
+    padding: $space-md;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    font-size: 13px;
+    color: $color-main-text;
+    background-color: $color-primary;
+    outline: none;
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+
+    &:focus {
+      border-color: $color-secondary;
+    }
+  }
+}

@@ -1,0 +1,44 @@
+@use "@/styles/variables" as *;
+
+.app-card {
+  background-color: $color-surface;
+  border: $card-border;
+  border-radius: $card-radius;
+  box-sizing: border-box;
+
+  &--stretch {
+    height: 100%;
+  }
+
+  &--padding-none {
+    padding: 0;
+  }
+
+  &--padding-sm {
+    padding: $space-sm;
+  }
+
+  &--padding-md {
+    padding: $space-md;
+  }
+
+  &--padding-lg {
+    padding: $space-lg;
+  }
+
+  &--padding-xl {
+    padding: $space-xl;
+  }
+
+  &__header {
+    margin-bottom: $space-lg;
+  }
+
+  &__body {
+    min-width: 0;
+  }
+
+  &__footer {
+    margin-top: $space-lg;
+  }
+}

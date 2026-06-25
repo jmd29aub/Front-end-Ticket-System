@@ -1,0 +1,42 @@
+@use "@/styles/variables" as *;
+
+.support-ticket-table {
+  width: 100%;
+  overflow-x: auto;
+
+  &__table {
+    width: 100%;
+    border-collapse: collapse;
+
+    th {
+      text-align: left;
+      color: $color-secondary-text;
+      font-size: $font-size-sm;
+      font-weight: 500;
+      padding: 0 10px $space-md;
+      border-bottom: 1px solid $color-border;
+      white-space: nowrap;
+    }
+
+    td {
+      color: $color-main-text;
+      font-size: 13px;
+      font-weight: 500;
+      padding: 14px 10px;
+      border-bottom: 1px solid $color-border;
+      vertical-align: middle;
+      white-space: nowrap;
+    }
+  }
+
+  &__table :deep(.priority-badge),
+  &__table :deep(.status-badge) {
+    height: 22px;
+    font-size: 10px;
+    min-width: 62px;
+  }
+
+  &__table :deep(.status-badge--waiting-for-client) {
+    min-width: 118px;
+  }
+}

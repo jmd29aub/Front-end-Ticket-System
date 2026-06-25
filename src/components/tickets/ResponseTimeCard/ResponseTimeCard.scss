@@ -1,0 +1,76 @@
+@use "@/styles/variables" as *;
+
+.response-time-card {
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+
+    h3 {
+      margin: 0;
+      color: $color-main-text;
+      font-size: 17px;
+      font-weight: 800;
+    }
+  }
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba($color-secondary, 0.12);
+    color: $color-secondary;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  &__list {
+    margin-top: 34px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  &__row {
+    display: grid;
+    grid-template-columns: 14px 1fr auto;
+    align-items: center;
+    gap: $space-sm;
+    color: $color-secondary-text;
+    font-size: $font-size-xs;
+    font-weight: 600;
+
+    strong {
+      color: $color-secondary-text;
+      font-size: $font-size-xs;
+      font-weight: 800;
+    }
+  }
+
+  &__dot {
+    width: $space-sm;
+    height: $space-sm;
+    border-radius: 50%;
+
+    &--high {
+      background-color: $color-danger;
+    }
+
+    &--medium {
+      background-color: $color-warning;
+    }
+
+    &--low {
+      background-color: $color-success;
+    }
+  }
+
+  &__note {
+    margin: 44px 0 0;
+    text-align: center;
+    color: $color-secondary-text;
+    font-size: 10px;
+    font-weight: 600;
+  }
+}

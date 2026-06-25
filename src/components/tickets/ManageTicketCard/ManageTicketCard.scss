@@ -1,0 +1,74 @@
+@use "@/styles/variables" as *;
+
+.manage-ticket-card {
+  &__header {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+
+    h3 {
+      margin: 0;
+      color: $color-main-text;
+      font-size: 17px;
+      font-weight: 800;
+    }
+  }
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba($color-secondary, 0.12);
+    color: $color-secondary;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+  }
+
+  &__form {
+    margin-top: $space-lg;
+    display: flex;
+    flex-direction: column;
+    gap: $space-sm;
+
+    label {
+      display: flex;
+      flex-direction: column;
+      gap: $space-xs;
+    }
+
+    span {
+      color: $color-main-text;
+      font-size: $font-size-xs;
+      font-weight: 700;
+    }
+
+    select {
+      height: 38px;
+      border: 1px solid $color-border;
+      border-radius: $radius-md;
+      padding: 0 $space-md;
+      background-color: $color-primary;
+      outline: none;
+      font-size: $font-size-xs;
+      color: $color-main-text;
+
+      &:focus {
+        border-color: $color-secondary;
+      }
+    }
+  }
+
+  &__button {
+    width: 100%;
+    height: $button-height;
+    border: none;
+    border-radius: $radius-md;
+    background-color: $color-secondary;
+    color: $color-primary;
+    font-size: $button-font-size;
+    font-weight: 800;
+    cursor: pointer;
+    margin-top: $space-sm;
+  }
+}

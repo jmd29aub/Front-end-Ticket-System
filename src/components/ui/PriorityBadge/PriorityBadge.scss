@@ -1,0 +1,29 @@
+@use "@/styles/variables" as *;
+
+.priority-badge {
+  min-width: $badge-min-width;
+  height: $badge-height;
+  padding: 0 $badge-padding-x;
+  border-radius: $badge-radius;
+  font-size: $badge-font-size;
+  font-weight: $badge-font-weight;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+
+  &--high {
+    background-color: $priority-high-bg;
+    color: $priority-high-text;
+  }
+
+  &--medium {
+    background-color: $priority-medium-bg;
+    color: $priority-medium-text;
+  }
+
+  &--low {
+    background-color: $priority-low-bg;
+    color: $priority-low-text;
+  }
+}

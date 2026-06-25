@@ -1,0 +1,56 @@
+@use "@/styles/variables" as *;
+
+.ticket-details-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: $space-lg;
+
+  &__text {
+    min-width: 0;
+  }
+
+  &__title {
+    margin: 0;
+    color: $color-main-text;
+    font-size: 20px;
+    font-weight: 800;
+  }
+
+  &__meta {
+    margin-top: $space-md;
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    color: $color-secondary-text;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    flex-wrap: wrap;
+  }
+
+  &__meta-dot {
+    width: 5px;
+    height: 5px;
+    background-color: $color-secondary;
+    border-radius: 50%;
+    flex-shrink: 0;
+  }
+
+  &__badges {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    padding-top: $space-xs;
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 700px) {
+  .ticket-details-header {
+    flex-direction: column;
+
+    &__badges {
+      padding-top: 0;
+    }
+  }
+}

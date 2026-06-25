@@ -1,0 +1,37 @@
+@use "@/styles/variables" as *;
+
+.app-input {
+  display: flex;
+  flex-direction: column;
+  gap: $space-xs;
+
+  &__label {
+    font-size: $field-label-size;
+    font-weight: 700;
+    color: $color-main-text;
+  }
+
+  &__required {
+    color: $color-danger;
+  }
+
+  &__field {
+    width: 100%;
+    height: $field-height;
+    padding: 0 $space-md;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    font-size: $field-font-size;
+    color: $color-main-text;
+    background-color: $color-primary;
+    outline: none;
+
+    &::placeholder {
+      color: #9ca3af;
+    }
+
+    &:focus {
+      border-color: $color-secondary;
+    }
+  }
+}

@@ -1,0 +1,119 @@
+@use "@/styles/variables" as *;
+
+.app-navbar {
+  height: $navbar-height;
+  background-color: $color-surface;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0 $page-padding-x;
+  box-sizing: border-box;
+
+  &__brand-area {
+    display: flex;
+    align-items: center;
+    gap: $space-sm;
+    min-width: 0;
+  }
+
+  &__headset-icon {
+    width: 32px;
+    height: 32px;
+    border-radius: $radius-md;
+    background-color: $color-secondary;
+    color: $color-primary;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    svg {
+      width: 20px;
+      height: 20px;
+    }
+  }
+
+  &__brand {
+    margin: 0;
+    color: $color-main-text;
+    font-size: $font-size-md;
+    font-weight: 700;
+    white-space: nowrap;
+  }
+
+  &__nav {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: 64px;
+  }
+
+  &__nav-link {
+    border: none;
+    background: transparent;
+    color: $color-secondary-text;
+    text-decoration: none;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+    white-space: nowrap;
+  }
+
+  &__notification {
+    border: none;
+    background: transparent;
+    color: $color-main-text;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    display: grid;
+    place-items: center;
+
+    span {
+      position: absolute;
+      top: -5px;
+      right: -8px;
+      width: 12px;
+      height: 12px;
+      border-radius: 50%;
+      background-color: $color-secondary;
+      color: $color-primary;
+      font-size: 8px;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+    }
+  }
+
+  &__sign-out {
+    border: none;
+    background: transparent;
+    color: $color-secondary;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    cursor: pointer;
+    padding-left: $space-lg;
+    border-left: 1px solid $color-border;
+    display: inline-flex;
+    align-items: center;
+    gap: $space-xs;
+    white-space: nowrap;
+  }
+}
+
+@media (max-width: 900px) {
+  .app-navbar {
+    height: auto;
+    min-height: $navbar-height;
+    flex-direction: column;
+    align-items: flex-start;
+    gap: $space-md;
+    padding: $space-lg;
+
+    &__nav {
+      height: auto;
+      flex-wrap: wrap;
+      gap: $space-lg;
+    }
+  }
+}

@@ -1,0 +1,69 @@
+@use "@/styles/variables" as *;
+
+.conversation-message {
+  display: flex;
+  align-items: center;
+  gap: $space-sm;
+
+  &--right {
+    justify-content: flex-end;
+
+    .conversation-message__bubble {
+      background-color: rgba($color-secondary, 0.08);
+    }
+  }
+
+  &__avatar {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba($color-secondary, 0.12);
+    color: $color-main-text;
+    display: grid;
+    place-items: center;
+    font-size: $font-size-md;
+    font-weight: 700;
+    flex-shrink: 0;
+
+    &--support {
+      background-color: rgba($color-secondary, 0.2);
+      color: $color-secondary;
+    }
+  }
+
+  &__bubble {
+    max-width: 72%;
+    min-height: 52px;
+    background-color: $color-background;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    padding: 9px $space-md;
+    box-sizing: border-box;
+
+    span {
+      display: block;
+      color: $color-secondary-text;
+      font-size: 9px;
+      font-weight: 800;
+    }
+
+    strong {
+      display: block;
+      margin-top: $space-xs;
+      color: $color-main-text;
+      font-size: $font-size-xs;
+      font-weight: 800;
+      line-height: 1.45;
+    }
+  }
+}
+
+@media (max-width: 700px) {
+  .conversation-message {
+    align-items: flex-start;
+
+    &__bubble {
+      max-width: 100%;
+    }
+  }
+}

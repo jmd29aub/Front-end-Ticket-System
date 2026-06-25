@@ -1,0 +1,53 @@
+@use "@/styles/variables" as *;
+
+.stat-card {
+  background-color: $color-surface;
+  border: 1px solid $color-border;
+  border-radius: $radius-md;
+  min-height: 98px;
+  padding: $space-lg;
+  display: flex;
+  align-items: center;
+  gap: $space-lg;
+
+  &__icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    display: grid;
+    place-items: center;
+
+    &--purple {
+      background-color: rgba($color-secondary, 0.12);
+      color: $color-secondary;
+    }
+
+    &--green {
+      background-color: rgba($color-success, 0.14);
+      color: $color-success;
+    }
+
+    &--red {
+      background-color: rgba($color-danger, 0.16);
+      color: $color-danger;
+    }
+  }
+
+  &__content {
+    display: flex;
+    flex-direction: column;
+    gap: $space-xs;
+  }
+
+  &__title {
+    margin: 0;
+    color: $color-secondary-text;
+    font-size: $font-size-sm;
+  }
+
+  &__value {
+    color: #000000;
+    font-size: 28px;
+    line-height: 1;
+  }
+}

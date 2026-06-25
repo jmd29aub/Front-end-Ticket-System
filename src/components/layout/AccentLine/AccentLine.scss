@@ -1,0 +1,7 @@
+@use "@/styles/variables" as *;
+
+.accent-line {
+  width: 100%;
+  height: $accent-line-height;
+  background-color: $color-secondary;
+}

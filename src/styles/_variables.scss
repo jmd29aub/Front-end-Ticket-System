@@ -1,0 +1,132 @@
+// ==============================
+// Colors
+// ==============================
+
+$color-main-text: #111827;
+$color-secondary-text: #6b7280;
+
+$color-background: #f5f7fa;
+$color-primary: #ffffff;
+$color-surface: #ffffff;
+$color-secondary: #a81aea;
+
+$color-border: #e5e7eb;
+
+$color-success: #27c663;
+$color-warning: #ff9645;
+$color-danger: #e50000;
+
+$color-text: $color-main-text;
+$color-muted: $color-secondary-text;
+
+// ==============================
+// Typography
+// ==============================
+
+$font-main: "Inter", Arial, sans-serif;
+
+$font-size-xs: 12px;
+$font-size-table: 14px;
+$font-size-sm: 16px;
+$font-size-md: 18px;
+$font-size-lg: 22px;
+$font-size-xl: 30px;
+
+// ==============================
+// Spacing
+// ==============================
+
+$space-xs: 4px;
+$space-sm: 8px;
+$space-md: 16px;
+$space-lg: 24px;
+$space-xl: 32px;
+$space-xxl: 48px;
+
+// ==============================
+// Border Radius
+// ==============================
+
+$radius-sm: 4px;
+$radius-md: 8px;
+$radius-lg: 12px;
+
+// ==============================
+// Shadows
+// ==============================
+
+$shadow-sm: 0 1px 3px rgba(17, 24, 39, 0.08);
+$shadow-md: 0 4px 12px rgba(17, 24, 39, 0.1);
+
+// ==============================
+// Shared Page Layout
+// ==============================
+
+$page-shell-width: 1120px;
+$page-shell-height: 775px;
+$page-outer-background: #d9d9d9;
+
+$navbar-height: 64px;
+$accent-line-height: 8px;
+
+$page-padding-x: $space-xl;
+$page-header-padding-top: 26px;
+$page-header-padding-bottom: 22px;
+
+$page-title-size: $font-size-xl;
+$page-subtitle-size: $font-size-sm;
+$page-subtitle-margin-top: $space-md;
+
+$card-border: 1px solid $color-border;
+$card-radius: $radius-md;
+
+// ==============================
+// Form / Button Sizes
+// ==============================
+
+$field-height: 42px;
+$field-font-size: 13px;
+$field-label-size: 12px;
+
+$button-height: 42px;
+$button-font-size: 12px;
+$button-min-width: 184px;
+$button-small-min-width: 126px;
+$button-padding-x: 20px;
+
+// ==============================
+// Badge Design System
+// ==============================
+
+$badge-height: 24px;
+$badge-min-width: 74px;
+$badge-padding-x: 12px;
+$badge-radius: 7px;
+$badge-font-size: 11px;
+$badge-font-weight: 700;
+
+// Status badge colors
+$status-open-bg: #dbeafe;
+$status-open-text: #2563eb;
+
+$status-progress-bg: #f3e8ff;
+$status-progress-text: #a81aea;
+
+$status-resolved-bg: #dcfce7;
+$status-resolved-text: #16a34a;
+
+$status-waiting-bg: #fef3c7;
+$status-waiting-text: #b45309;
+
+$status-closed-bg: #f3f4f6;
+$status-closed-text: #6b7280;
+
+// Priority badge colors
+$priority-high-bg: #fecaca;
+$priority-high-text: #e50000;
+
+$priority-medium-bg: #fef3c7;
+$priority-medium-text: #b45309;
+
+$priority-low-bg: #dcfce7;
+$priority-low-text: #16a34a;

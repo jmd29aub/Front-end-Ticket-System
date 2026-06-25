@@ -1,0 +1,44 @@
+@use "@/styles/variables" as *;
+
+.page-header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: $space-lg;
+  padding: $page-header-padding-top $page-padding-x $page-header-padding-bottom;
+  box-sizing: border-box;
+
+  &__text {
+    min-width: 0;
+  }
+
+  &__title {
+    margin: 0;
+    color: $color-main-text;
+    font-size: $page-title-size;
+    font-weight: 800;
+  }
+
+  &__subtitle {
+    margin: $page-subtitle-margin-top 0 0;
+    color: $color-secondary-text;
+    font-size: $page-subtitle-size;
+    font-weight: 600;
+  }
+
+  &__action {
+    flex-shrink: 0;
+  }
+}
+
+@media (max-width: 900px) {
+  .page-header {
+    flex-direction: column;
+    align-items: flex-start;
+    padding: $space-lg;
+
+    &__action {
+      width: 100%;
+    }
+  }
+}

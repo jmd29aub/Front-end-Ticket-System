@@ -1,0 +1,40 @@
+@use "@/styles/variables" as *;
+
+.status-badge {
+  min-width: $badge-min-width;
+  height: $badge-height;
+  padding: 0 $badge-padding-x;
+  border-radius: $badge-radius;
+  font-size: $badge-font-size;
+  font-weight: $badge-font-weight;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  white-space: nowrap;
+
+  &--open {
+    background-color: $status-open-bg;
+    color: $status-open-text;
+  }
+
+  &--in-progress {
+    background-color: $status-progress-bg;
+    color: $status-progress-text;
+  }
+
+  &--resolved {
+    background-color: $status-resolved-bg;
+    color: $status-resolved-text;
+  }
+
+  &--waiting-for-client {
+    min-width: 118px;
+    background-color: $status-waiting-bg;
+    color: $status-waiting-text;
+  }
+
+  &--closed {
+    background-color: $status-closed-bg;
+    color: $status-closed-text;
+  }
+}
