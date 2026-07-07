@@ -1,0 +1,146 @@
+@use "@/styles/variables" as *;
+
+.login-page {
+  min-height: 100vh;
+  background-color: $color-background;
+  padding: 0;
+  display: block;
+  box-sizing: border-box;
+
+  &__shell {
+    width: 100%;
+    min-height: 100vh;
+    background-color: $color-background;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: $space-lg;
+    box-sizing: border-box;
+  }
+
+  &__card {
+    width: 340px;
+  }
+
+  &__form-card {
+    width: 100%;
+    min-height: 370px;
+    padding: 38px 30px 28px;
+    box-sizing: border-box;
+  }
+
+  &__brand {
+    margin: 0;
+    text-align: center;
+    color: $color-main-text;
+    font-size: $font-size-md;
+    font-weight: 800;
+  }
+
+  &__title {
+    margin: 24px 0 0;
+    text-align: center;
+    color: $color-main-text;
+    font-size: 26px;
+    font-weight: 800;
+  }
+
+  &__subtitle {
+    margin: $space-sm 0 0;
+    text-align: center;
+    color: $color-secondary-text;
+    font-size: $font-size-xs;
+    font-weight: 600;
+  }
+
+  &__form {
+    margin-top: 28px;
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+  }
+
+  &__password-group {
+    display: flex;
+    flex-direction: column;
+  }
+
+  &__password-field {
+    position: relative;
+  }
+
+  &__password-field :deep(input) {
+    padding-right: 44px;
+  }
+
+  &__password-toggle {
+    position: absolute;
+    right: 12px;
+    bottom: 10px;
+    width: 22px;
+    height: 22px;
+    border: none;
+    background: transparent;
+    color: $color-secondary-text;
+    padding: 0;
+    cursor: pointer;
+    display: grid;
+    place-items: center;
+
+    svg {
+      width: 19px;
+      height: 19px;
+    }
+
+    &:hover {
+      color: $color-secondary;
+    }
+  }
+
+  &__forgot {
+    align-self: flex-end;
+    margin-top: 9px;
+    border: none;
+    background: transparent;
+    color: $color-secondary;
+    font-size: $font-size-xs;
+    font-weight: 600;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  &__error-message {
+    height: 14px;
+    margin: -4px 0 -6px;
+    color: $color-danger;
+    font-size: 11px;
+    font-weight: 800;
+    line-height: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &--hidden {
+      visibility: hidden;
+    }
+  }
+
+  &__form :deep(.app-button) {
+    width: 100%;
+    min-width: 100%;
+    margin-top: $space-sm;
+  }
+}
+
+@media (max-width: 600px) {
+  .login-page {
+    &__shell {
+      padding: $space-lg;
+    }
+
+    &__card {
+      width: 100%;
+      max-width: 340px;
+    }
+  }
+}

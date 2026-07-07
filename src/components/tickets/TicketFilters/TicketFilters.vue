@@ -1,7 +1,8 @@
 <script setup lang="ts">
+import { computed } from "vue";
 import AppIcon from "@/components/ui/AppIcon/AppIcon.vue";
 
-defineProps<{
+const props = defineProps<{
   search: string;
   status: string;
   priority: string;
@@ -22,6 +23,12 @@ const priorityOptions = ["High", "Medium", "Low"];
 const categoryOptions = ["Account Access", "Billing", "Feature Request", "Technical Issue"];
 const agentOptions = ["John Doe", "Support Team", "Sarah Smith"];
 
+const hasActiveFilters = computed(() => {
+  return Boolean(
+    props.search.trim() || props.status || props.priority || props.category || props.agent,
+  );
+});
+
 function handleSearchInput(event: Event) {
   emit("update:search", (event.target as HTMLInputElement).value);
 }
@@ -40,6 +47,18 @@ function handleCategoryChange(event: Event) {
 
 function handleAgentChange(event: Event) {
   emit("update:agent", (event.target as HTMLSelectElement).value);
+}
+
+function handleClearFilters() {
+  if (!hasActiveFilters.value) {
+    return;
+  }
+
+  emit("update:search", "");
+  emit("update:status", "");
+  emit("update:priority", "");
+  emit("update:category", "");
+  emit("update:agent", "");
 }
 </script>
 
@@ -85,6 +104,15 @@ function handleAgentChange(event: Event) {
         {{ option }}
       </option>
     </select>
+
+    <button
+      class="ticket-filters__clear-button"
+      type="button"
+      :disabled="!hasActiveFilters"
+      @click="handleClearFilters"
+    >
+      Clear Filters
+    </button>
   </section>
 </template>
 

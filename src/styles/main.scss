@@ -18,3 +18,620 @@ a {
   color: inherit;
   text-decoration: none;
 }
+
+.app-dark {
+  color-scheme: dark;
+  background-color: #0f172a;
+}
+
+.app-dark body {
+  background-color: #0f172a;
+}
+
+/* Shared dark page backgrounds */
+.app-dark .client-dashboard,
+.app-dark .create-ticket,
+.app-dark .ticket-details {
+  background:
+    radial-gradient(circle at top left, rgba(168, 26, 234, 0.14), transparent 34%),
+    linear-gradient(135deg, #0f172a 0%, #111827 45%, #0b1120 100%) !important;
+}
+
+/* Shells and main content */
+.app-dark .client-dashboard__shell,
+.app-dark .create-ticket__shell,
+.app-dark .ticket-details__shell,
+.app-dark .client-dashboard__content,
+.app-dark .create-ticket__content,
+.app-dark .ticket-details__content {
+  background: transparent !important;
+}
+
+/* Navbar + side menu */
+.app-dark .client-dashboard__sidebar-header,
+.app-dark .client-dashboard__topbar,
+.app-dark .client-dashboard__sidebar,
+.app-dark .create-ticket__sidebar-header,
+.app-dark .create-ticket__topbar,
+.app-dark .create-ticket__sidebar,
+.app-dark .ticket-details__sidebar-header,
+.app-dark .ticket-details__topbar,
+.app-dark .ticket-details__sidebar {
+  background-color: rgba(15, 23, 42, 0.96) !important;
+  border-color: rgba(148, 163, 184, 0.18) !important;
+  backdrop-filter: blur(14px);
+}
+
+/* Cards */
+.app-dark .client-dashboard__hero,
+.app-dark .client-dashboard__stat-card,
+.app-dark .client-dashboard__progress-card,
+.app-dark .client-dashboard__info-card,
+.app-dark .client-dashboard__tickets-card,
+.app-dark .client-dashboard__full-page-header,
+.app-dark .client-dashboard__profile-card,
+.app-dark .client-dashboard__settings-card,
+.app-dark .client-dashboard__notification-center-card,
+.app-dark .create-ticket__form-card,
+.app-dark .create-ticket__info-card,
+.app-dark .create-ticket__response-card,
+.app-dark .ticket-details__main-card,
+.app-dark .ticket-details__side-card {
+  background-color: rgba(30, 41, 59, 0.92) !important;
+  border-color: rgba(148, 163, 184, 0.18) !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+/* Main text */
+.app-dark .client-dashboard__brand,
+.app-dark .client-dashboard__title,
+.app-dark .client-dashboard__full-page-header h2,
+.app-dark .client-dashboard__tickets-header h3,
+.app-dark .client-dashboard__settings-card h3,
+.app-dark .client-dashboard__profile-card strong,
+.app-dark .create-ticket__brand,
+.app-dark .create-ticket__title,
+.app-dark .create-ticket__form-header h3,
+.app-dark .create-ticket__info-header h3,
+.app-dark .ticket-details__brand,
+.app-dark .ticket-details__page-title,
+.app-dark .ticket-details__ticket-title,
+.app-dark .ticket-details__section-title,
+.app-dark .ticket-details__side-header h3 {
+  color: #f8fafc !important;
+}
+
+/* Secondary text */
+.app-dark .client-dashboard__subtitle,
+.app-dark .client-dashboard__full-page-header p,
+.app-dark .client-dashboard__tickets-header p,
+.app-dark .client-dashboard__table th,
+.app-dark .client-dashboard__settings-note,
+.app-dark .client-dashboard__profile-card span,
+.app-dark .create-ticket__subtitle,
+.app-dark .create-ticket__form-header p,
+.app-dark .create-ticket__tips li,
+.app-dark .create-ticket__response-row,
+.app-dark .create-ticket__response-row strong,
+.app-dark .create-ticket__response-note,
+.app-dark .ticket-details__page-subtitle,
+.app-dark .ticket-details__meta,
+.app-dark .ticket-details__summary-label,
+.app-dark .ticket-details__summary-text,
+.app-dark .ticket-details__note,
+.app-dark .ticket-details__info-card p {
+  color: #cbd5e1 !important;
+}
+
+/* Tables */
+.app-dark .client-dashboard__table td {
+  color: #f8fafc !important;
+  border-color: rgba(148, 163, 184, 0.16) !important;
+}
+
+.app-dark .client-dashboard__table th {
+  border-color: rgba(148, 163, 184, 0.16) !important;
+}
+
+/* Inputs / selects / textareas */
+.app-dark input,
+.app-dark select,
+.app-dark textarea,
+.app-dark .client-dashboard__search,
+.app-dark .client-dashboard__filters select,
+.app-dark .create-ticket__attachment,
+.app-dark .ticket-details__reply-input,
+.app-dark .ticket-details__attach-button,
+.app-dark .ticket-details__description-box,
+.app-dark .ticket-details__messages-panel {
+  background-color: rgba(15, 23, 42, 0.92) !important;
+  border-color: rgba(148, 163, 184, 0.28) !important;
+  color: #f8fafc !important;
+}
+
+.app-dark input::placeholder,
+.app-dark textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Conversation */
+.app-dark .ticket-details__message-bubble {
+  background-color: #334155 !important;
+}
+
+.app-dark .ticket-details__message-bubble strong {
+  color: #f8fafc !important;
+}
+
+.app-dark .ticket-details__message-bubble--client {
+  background-color: rgba(168, 26, 234, 0.24) !important;
+}
+
+/* Notifications dropdown */
+.app-dark .client-dashboard__notification-menu,
+.app-dark .create-ticket__notification-menu,
+.app-dark .ticket-details__notification-menu {
+  background-color: #1e293b !important;
+  border-color: rgba(148, 163, 184, 0.2) !important;
+}
+
+.app-dark .client-dashboard__notification-item,
+.app-dark .create-ticket__notification-item,
+.app-dark .ticket-details__notification-item {
+  background-color: #1e293b !important;
+  border-color: rgba(148, 163, 184, 0.16) !important;
+}
+
+.app-dark .client-dashboard__notification-item:hover,
+.app-dark .create-ticket__notification-item:hover,
+.app-dark .ticket-details__notification-item:hover {
+  background-color: rgba(168, 26, 234, 0.14) !important;
+}
+
+/* Buttons/icons polish */
+.app-dark .client-dashboard__sidebar-link,
+.app-dark .create-ticket__sidebar-link,
+.app-dark .ticket-details__sidebar-link {
+  color: #e2e8f0 !important;
+}
+
+.app-dark .client-dashboard__sidebar-icon,
+.app-dark .create-ticket__sidebar-icon,
+.app-dark .ticket-details__sidebar-icon {
+  color: #cbd5e1 !important;
+}
+
+.app-dark .client-dashboard__sidebar-link:hover,
+.app-dark .client-dashboard__sidebar-link--active,
+.app-dark .create-ticket__sidebar-link:hover,
+.app-dark .create-ticket__sidebar-link--active,
+.app-dark .ticket-details__sidebar-link:hover {
+  background-color: rgba(168, 26, 234, 0.16) !important;
+  color: #ffffff !important;
+}
+
+.app-dark .client-dashboard__sidebar-link:hover .client-dashboard__sidebar-icon,
+.app-dark .client-dashboard__sidebar-link--active .client-dashboard__sidebar-icon,
+.app-dark .create-ticket__sidebar-link:hover .create-ticket__sidebar-icon,
+.app-dark .create-ticket__sidebar-link--active .create-ticket__sidebar-icon,
+.app-dark .ticket-details__sidebar-link:hover .ticket-details__sidebar-icon {
+  color: #c084fc !important;
+}
+
+/* Fix unreadable black text in dark mode */
+.app-dark .client-dashboard,
+.app-dark .create-ticket,
+.app-dark .ticket-details {
+  color: #f8fafc;
+}
+
+/* Force important black text to become readable */
+.app-dark .client-dashboard__stat-card strong,
+.app-dark .client-dashboard__table td,
+.app-dark .client-dashboard__profile-card strong,
+.app-dark .client-dashboard__settings-card,
+.app-dark .client-dashboard__settings-card span,
+.app-dark .client-dashboard__toggle-row,
+.app-dark .client-dashboard__select-row,
+.app-dark .create-ticket__attachment strong,
+.app-dark .create-ticket__form-card,
+.app-dark .ticket-details__description-box,
+.app-dark .ticket-details__message-bubble strong,
+.app-dark .ticket-details__avatar,
+.app-dark .ticket-details__summary-text,
+.app-dark .ticket-details__purple-text {
+  color: #f8fafc !important;
+}
+
+/* Labels and normal secondary text */
+.app-dark label,
+.app-dark th,
+.app-dark p,
+.app-dark small,
+.app-dark span {
+  color: #cbd5e1;
+}
+
+/* Keep muted helper text softer */
+.app-dark .client-dashboard__settings-note,
+.app-dark .create-ticket__response-note,
+.app-dark .ticket-details__note,
+.app-dark .ticket-details__meta,
+.app-dark .ticket-details__summary-label {
+  color: #94a3b8 !important;
+}
+
+/* Inputs and text areas */
+.app-dark input,
+.app-dark select,
+.app-dark textarea {
+  color: #f8fafc !important;
+  background-color: #0f172a !important;
+}
+
+.app-dark input::placeholder,
+.app-dark textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+/* Make dark cards slightly lighter than the background */
+.app-dark .client-dashboard__stat-card,
+.app-dark .client-dashboard__tickets-card,
+.app-dark .client-dashboard__settings-card,
+.app-dark .client-dashboard__profile-card,
+.app-dark .create-ticket__form-card,
+.app-dark .create-ticket__info-card,
+.app-dark .create-ticket__response-card,
+.app-dark .ticket-details__main-card,
+.app-dark .ticket-details__side-card {
+  background-color: #1e293b !important;
+}
+
+/* Better notification visibility in dark mode */
+.app-dark .client-dashboard__notification,
+.app-dark .create-ticket__notification,
+.app-dark .ticket-details__notification {
+  color: #f8fafc !important;
+}
+
+.app-dark .client-dashboard__notification svg,
+.app-dark .create-ticket__notification svg,
+.app-dark .ticket-details__notification svg {
+  color: #f8fafc !important;
+  stroke: #f8fafc !important;
+}
+
+.app-dark .client-dashboard__notification:hover,
+.app-dark .create-ticket__notification:hover,
+.app-dark .ticket-details__notification:hover {
+  color: #c084fc !important;
+}
+
+.app-dark .client-dashboard__notification:hover svg,
+.app-dark .create-ticket__notification:hover svg,
+.app-dark .ticket-details__notification:hover svg {
+  color: #c084fc !important;
+  stroke: #c084fc !important;
+}
+
+/* Notification count bubble */
+.app-dark .client-dashboard__notification span,
+.app-dark .create-ticket__notification span,
+.app-dark .ticket-details__notification span {
+  background-color: #c084fc !important;
+  color: #0f172a !important;
+  box-shadow: 0 0 0 2px #0f172a;
+}
+
+/* Notification dropdown/menu */
+.app-dark .client-dashboard__notification-menu,
+.app-dark .create-ticket__notification-menu,
+.app-dark .ticket-details__notification-menu {
+  background-color: #1e293b !important;
+  border-color: rgba(203, 213, 225, 0.22) !important;
+  box-shadow: 0 22px 45px rgba(0, 0, 0, 0.38) !important;
+}
+
+/* Dropdown header */
+.app-dark .client-dashboard__notification-menu-header,
+.app-dark .create-ticket__notification-menu-header,
+.app-dark .ticket-details__notification-menu-header {
+  border-color: rgba(203, 213, 225, 0.16) !important;
+  background-color: rgba(15, 23, 42, 0.72) !important;
+}
+
+.app-dark .client-dashboard__notification-menu-header h3,
+.app-dark .create-ticket__notification-menu-header h3,
+.app-dark .ticket-details__notification-menu-header h3 {
+  color: #f8fafc !important;
+}
+
+.app-dark .client-dashboard__notification-menu-header p,
+.app-dark .create-ticket__notification-menu-header p,
+.app-dark .ticket-details__notification-menu-header p {
+  color: #cbd5e1 !important;
+}
+
+.app-dark .client-dashboard__notification-menu-header button,
+.app-dark .create-ticket__notification-menu-header button,
+.app-dark .ticket-details__notification-menu-header button {
+  color: #c084fc !important;
+}
+
+/* Notification items */
+.app-dark .client-dashboard__notification-item,
+.app-dark .create-ticket__notification-item,
+.app-dark .ticket-details__notification-item {
+  background-color: #1e293b !important;
+  border-color: rgba(203, 213, 225, 0.14) !important;
+}
+
+.app-dark .client-dashboard__notification-item:hover,
+.app-dark .create-ticket__notification-item:hover,
+.app-dark .ticket-details__notification-item:hover {
+  background-color: rgba(168, 85, 247, 0.16) !important;
+}
+
+.app-dark .client-dashboard__notification-item--unread,
+.app-dark .create-ticket__notification-item--unread,
+.app-dark .ticket-details__notification-item--unread {
+  background-color: rgba(168, 85, 247, 0.18) !important;
+}
+
+/* Text inside notifications */
+.app-dark .client-dashboard__notification-content strong,
+.app-dark .create-ticket__notification-content strong,
+.app-dark .ticket-details__notification-content strong,
+.app-dark .client-dashboard__notification-center-content strong {
+  color: #f8fafc !important;
+}
+
+.app-dark .client-dashboard__notification-content small,
+.app-dark .create-ticket__notification-content small,
+.app-dark .ticket-details__notification-content small,
+.app-dark .client-dashboard__notification-center-content small {
+  color: #dbeafe !important;
+}
+
+.app-dark .client-dashboard__notification-content em,
+.app-dark .create-ticket__notification-content em,
+.app-dark .ticket-details__notification-content em,
+.app-dark .client-dashboard__notification-center-content em {
+  color: #c084fc !important;
+}
+
+/* Notification labels */
+.app-dark .client-dashboard__notification-label,
+.app-dark .create-ticket__notification-label,
+.app-dark .ticket-details__notification-label {
+  background-color: rgba(192, 132, 252, 0.18) !important;
+  color: #e9d5ff !important;
+}
+
+/* Empty/loading text */
+.app-dark .client-dashboard__notification-empty,
+.app-dark .create-ticket__notification-empty,
+.app-dark .ticket-details__notification-empty {
+  color: #cbd5e1 !important;
+}
+
+/* Notification center page */
+.app-dark .client-dashboard__notification-center-item {
+  background-color: #1e293b !important;
+  border-color: rgba(203, 213, 225, 0.14) !important;
+}
+
+.app-dark .client-dashboard__notification-center-item:hover {
+  background-color: rgba(168, 85, 247, 0.16) !important;
+}
+
+.app-dark .client-dashboard__notification-center-item--unread {
+  background-color: rgba(168, 85, 247, 0.18) !important;
+}
+
+.app-dark .client-dashboard__notification-center-header h3 {
+  color: #f8fafc !important;
+}
+
+.app-dark .client-dashboard__notification-center-header p {
+  color: #cbd5e1 !important;
+}
+
+/* Fix "Support Ticket System" title visibility in dark mode */
+html.app-dark body #app .client-dashboard__brand,
+html.app-dark body #app .create-ticket__brand,
+html.app-dark body #app .ticket-details__brand {
+  color: #f8fafc !important;
+  opacity: 1 !important;
+}
+
+/* Also fix it when the sidebar is collapsed */
+html.app-dark body #app .client-dashboard__shell--collapsed .client-dashboard__brand,
+html.app-dark body #app .create-ticket__shell--collapsed .create-ticket__brand,
+html.app-dark body #app .ticket-details__shell--collapsed .ticket-details__brand {
+  color: #f8fafc !important;
+  opacity: 1 !important;
+}
+
+/* Make the purple icon beside the title cleaner in dark mode */
+html.app-dark body #app .client-dashboard__brand-icon,
+html.app-dark body #app .create-ticket__brand-icon,
+html.app-dark body #app .ticket-details__brand-icon {
+  background-color: #a81aea !important;
+  color: #ffffff !important;
+  box-shadow: 0 0 0 1px rgba(192, 132, 252, 0.28);
+}
+
+/* Fix Support Ticket System title being clipped/invisible */
+html.app-dark body #app .client-dashboard__sidebar-header,
+html.app-dark body #app .create-ticket__sidebar-header,
+html.app-dark body #app .ticket-details__sidebar-header {
+  overflow: visible !important;
+  z-index: 500 !important;
+}
+
+html.app-dark body #app .client-dashboard__brand-group,
+html.app-dark body #app .create-ticket__brand-group,
+html.app-dark body #app .ticket-details__brand-group {
+  overflow: visible !important;
+}
+
+html.app-dark body #app .client-dashboard__brand,
+html.app-dark body #app .create-ticket__brand,
+html.app-dark body #app .ticket-details__brand {
+  display: block !important;
+  visibility: visible !important;
+  opacity: 1 !important;
+  color: #f8fafc !important;
+  z-index: 900 !important;
+  text-shadow: 0 1px 8px rgba(0, 0, 0, 0.35);
+}
+
+/* Fix the collapsed-sidebar title specifically */
+html.app-dark body #app .client-dashboard__shell--collapsed .client-dashboard__brand,
+html.app-dark body #app .create-ticket__shell--collapsed .create-ticket__brand,
+html.app-dark body #app .ticket-details__shell--collapsed .ticket-details__brand {
+  position: absolute !important;
+  top: 32px !important;
+  left: 120px !important;
+  transform: translateY(-50%) !important;
+  color: #f8fafc !important;
+  z-index: 900 !important;
+  white-space: nowrap !important;
+}
+
+/* Add this to the bottom of src/styles/main.scss for support dark mode */
+html.app-dark .support-dashboard,
+html.app-dark .support-dashboard__shell {
+  background:
+    radial-gradient(circle at top left, rgba(168, 26, 234, 0.14), transparent 34%),
+    linear-gradient(135deg, #0f172a 0%, #111827 45%, #0b1120 100%) !important;
+  color: #f8fafc !important;
+}
+
+html.app-dark .support-dashboard__content {
+  background: transparent !important;
+}
+
+html.app-dark .support-dashboard__sidebar-header,
+html.app-dark .support-dashboard__topbar,
+html.app-dark .support-dashboard__sidebar,
+html.app-dark .support-dashboard__stat-card,
+html.app-dark .support-dashboard__table-card,
+html.app-dark .support-dashboard__full-page-header,
+html.app-dark .support-dashboard__notification-menu,
+html.app-dark .support-dashboard__notification-center-card,
+html.app-dark .support-dashboard__settings-card,
+html.app-dark .support-dashboard__profile-card,
+html.app-dark .support-dashboard__export-modal,
+html.app-dark .support-dashboard__password-modal,
+html.app-dark .support-dashboard .ticket-filters,
+html.app-dark .support-dashboard .support-ticket-table {
+  background-color: rgba(30, 41, 59, 0.94) !important;
+  border-color: rgba(203, 213, 225, 0.18) !important;
+  box-shadow: 0 18px 40px rgba(0, 0, 0, 0.24);
+}
+
+html.app-dark .support-dashboard__brand,
+html.app-dark .support-dashboard__title,
+html.app-dark .support-dashboard__full-page-header h2,
+html.app-dark .support-dashboard__table-header h3,
+html.app-dark .support-dashboard__notification-menu-header h3,
+html.app-dark .support-dashboard__notification-center-header h3,
+html.app-dark .support-dashboard__settings-card h3,
+html.app-dark .support-dashboard__profile-card strong,
+html.app-dark .support-dashboard__profile-card--main h3,
+html.app-dark .support-dashboard__password-modal-header h3,
+html.app-dark .support-dashboard table td,
+html.app-dark .support-dashboard table td *,
+html.app-dark .support-dashboard .support-ticket-table td,
+html.app-dark .support-dashboard .support-ticket-table td * {
+  color: #f8fafc !important;
+}
+
+html.app-dark .support-dashboard__subtitle,
+html.app-dark .support-dashboard__full-page-header p,
+html.app-dark .support-dashboard__table-header p,
+html.app-dark .support-dashboard__notification-menu-header p,
+html.app-dark .support-dashboard__notification-content small,
+html.app-dark .support-dashboard__notification-center-content small,
+html.app-dark .support-dashboard__settings-note,
+html.app-dark .support-dashboard__profile-card span,
+html.app-dark .support-dashboard__profile-card--main p,
+html.app-dark .support-dashboard table th,
+html.app-dark .support-dashboard .support-ticket-table th,
+html.app-dark .support-dashboard label,
+html.app-dark .support-dashboard label span {
+  color: #cbd5e1 !important;
+}
+
+html.app-dark .support-dashboard__notification,
+html.app-dark .support-dashboard__profile,
+html.app-dark .support-dashboard__sidebar-link,
+html.app-dark .support-dashboard__sidebar-icon,
+html.app-dark .support-dashboard__notification svg {
+  color: #f8fafc !important;
+  stroke: #f8fafc !important;
+}
+
+html.app-dark .support-dashboard__sidebar-link:hover,
+html.app-dark .support-dashboard__sidebar-link--active {
+  background-color: rgba(168, 85, 247, 0.16) !important;
+  color: #ffffff !important;
+}
+
+html.app-dark .support-dashboard__sidebar-link:hover .support-dashboard__sidebar-icon,
+html.app-dark .support-dashboard__sidebar-link--active .support-dashboard__sidebar-icon {
+  color: #c084fc !important;
+}
+
+html.app-dark .support-dashboard input,
+html.app-dark .support-dashboard select,
+html.app-dark .support-dashboard textarea,
+html.app-dark .support-dashboard .ticket-filters input,
+html.app-dark .support-dashboard .ticket-filters select {
+  background-color: #0f172a !important;
+  border-color: rgba(203, 213, 225, 0.28) !important;
+  color: #f8fafc !important;
+}
+
+html.app-dark .support-dashboard input::placeholder,
+html.app-dark .support-dashboard textarea::placeholder {
+  color: #94a3b8 !important;
+}
+
+html.app-dark .support-dashboard__notification-menu,
+html.app-dark .support-dashboard__notification-item,
+html.app-dark .support-dashboard__notification-center-item {
+  background-color: #1e293b !important;
+  border-color: rgba(203, 213, 225, 0.18) !important;
+}
+
+html.app-dark .support-dashboard__notification-item:hover,
+html.app-dark .support-dashboard__notification-center-item:hover {
+  background-color: rgba(168, 85, 247, 0.16) !important;
+}
+
+html.app-dark .support-dashboard__notification-item--unread,
+html.app-dark .support-dashboard__notification-center-item--unread {
+  background-color: rgba(168, 85, 247, 0.18) !important;
+}
+
+html.app-dark .support-dashboard__notification-label,
+html.app-dark .support-dashboard__notification-content em,
+html.app-dark .support-dashboard__notification-center-content em {
+  color: #c084fc !important;
+}
+
+html.app-dark .support-dashboard__notification span {
+  background-color: #c084fc !important;
+  color: #0f172a !important;
+  box-shadow: 0 0 0 2px #0f172a;
+}
+
+html.app-dark .support-dashboard table,
+html.app-dark .support-dashboard th,
+html.app-dark .support-dashboard td {
+  background-color: transparent !important;
+  border-color: rgba(203, 213, 225, 0.14) !important;
+}

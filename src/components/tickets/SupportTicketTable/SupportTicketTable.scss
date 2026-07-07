@@ -2,41 +2,314 @@
 
 .support-ticket-table {
   width: 100%;
-  overflow-x: auto;
+  max-width: 100%;
+  min-width: 0;
+  overflow: visible;
 
   &__table {
     width: 100%;
+    max-width: 100%;
     border-collapse: collapse;
+    table-layout: fixed;
 
     th {
       text-align: left;
       color: $color-secondary-text;
-      font-size: $font-size-sm;
+      font-size: 13px;
       font-weight: 500;
-      padding: 0 10px $space-md;
+      padding: 0 7px $space-md;
       border-bottom: 1px solid $color-border;
-      white-space: nowrap;
+      white-space: normal;
+      line-height: 1.25;
     }
 
     td {
       color: $color-main-text;
-      font-size: 13px;
+      font-size: 12px;
       font-weight: 500;
-      padding: 14px 10px;
+      padding: 13px 7px;
       border-bottom: 1px solid $color-border;
       vertical-align: middle;
+      white-space: normal;
+      line-height: 1.35;
+      overflow-wrap: anywhere;
+      word-break: normal;
+    }
+
+    th,
+    td {
+      &:nth-child(1) {
+        width: 8%;
+      }
+
+      &:nth-child(2) {
+        width: 14%;
+      }
+
+      &:nth-child(3) {
+        width: 17%;
+      }
+
+      &:nth-child(4) {
+        width: 10%;
+      }
+
+      &:nth-child(5) {
+        width: 14%;
+      }
+
+      &:nth-child(6) {
+        width: 12%;
+      }
+
+      &:nth-child(7) {
+        width: 11%;
+      }
+
+      &:nth-child(8) {
+        width: 9%;
+      }
+
+      &:nth-child(9) {
+        width: 5%;
+        min-width: 0;
+        text-align: center;
+      }
+    }
+
+    button {
+      width: 100%;
+      min-width: 0;
+      max-width: 100%;
+      height: 34px;
+      border: 1px solid $color-secondary;
+      border-radius: $radius-md;
+      background-color: $color-secondary;
+      color: $color-primary;
+      font-size: 9px;
+      font-weight: 800;
+      cursor: pointer;
+      padding: 0 4px;
       white-space: nowrap;
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      line-height: 1;
+
+      &:hover {
+        background-color: #9415d4;
+      }
     }
   }
 
   &__table :deep(.priority-badge),
   &__table :deep(.status-badge) {
-    height: 22px;
+    min-width: 58px;
+    height: auto;
+    min-height: 22px;
+    padding: 4px 8px;
     font-size: 10px;
-    min-width: 62px;
+    line-height: 1.15;
+    white-space: normal;
+    text-align: center;
   }
 
   &__table :deep(.status-badge--waiting-for-client) {
-    min-width: 118px;
+    min-width: 92px;
+  }
+}
+
+@media (max-width: 1180px) {
+  .support-ticket-table {
+    &__table {
+      th {
+        font-size: 12px;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      td {
+        font-size: 11px;
+        padding-left: 5px;
+        padding-right: 5px;
+      }
+
+      th,
+      td {
+        &:nth-child(1) {
+          width: 8%;
+        }
+
+        &:nth-child(2) {
+          width: 13%;
+        }
+
+        &:nth-child(3) {
+          width: 16%;
+        }
+
+        &:nth-child(4) {
+          width: 10%;
+        }
+
+        &:nth-child(5) {
+          width: 14%;
+        }
+
+        &:nth-child(6) {
+          width: 12%;
+        }
+
+        &:nth-child(7) {
+          width: 11%;
+        }
+
+        &:nth-child(8) {
+          width: 9%;
+        }
+
+        &:nth-child(9) {
+          width: 7%;
+        }
+      }
+
+      button {
+        height: 32px;
+        font-size: 8.5px;
+        padding: 0 3px;
+      }
+    }
+  }
+}
+
+@media (max-width: 900px) {
+  .support-ticket-table {
+    &__table,
+    &__table thead,
+    &__table tbody,
+    &__table tr,
+    &__table th,
+    &__table td {
+      display: block;
+      width: 100%;
+    }
+
+    &__table {
+      border-collapse: separate;
+      border-spacing: 0;
+
+      thead {
+        display: none;
+      }
+
+      tbody {
+        display: grid;
+        grid-template-columns: 1fr;
+        gap: $space-md;
+      }
+
+      tr {
+        background-color: $color-surface;
+        border: 1px solid $color-border;
+        border-radius: $radius-md;
+        padding: $space-md;
+      }
+
+      td {
+        min-height: 34px;
+        border-bottom: 1px solid $color-border;
+        padding: 10px 0;
+        display: grid;
+        grid-template-columns: 130px minmax(0, 1fr);
+        align-items: center;
+        gap: $space-md;
+        font-size: 13px;
+        white-space: normal;
+        overflow-wrap: anywhere;
+        text-align: left;
+
+        &::before {
+          color: $color-secondary-text;
+          font-size: 12px;
+          font-weight: 800;
+        }
+
+        &:nth-child(1)::before {
+          content: "Ticket ID";
+        }
+
+        &:nth-child(2)::before {
+          content: "Client";
+        }
+
+        &:nth-child(3)::before {
+          content: "Subject";
+        }
+
+        &:nth-child(4)::before {
+          content: "Priority";
+        }
+
+        &:nth-child(5)::before {
+          content: "Status";
+        }
+
+        &:nth-child(6)::before {
+          content: "Assigned To";
+        }
+
+        &:nth-child(7)::before {
+          content: "Category";
+        }
+
+        &:nth-child(8)::before {
+          content: "Date";
+        }
+
+        &:nth-child(9)::before {
+          content: "Action";
+        }
+
+        &:last-child {
+          border-bottom: none;
+          padding-bottom: 0;
+        }
+      }
+
+      button {
+        width: 112px;
+        min-width: 112px;
+        max-width: 112px;
+        height: 34px;
+        font-size: 11px;
+        padding: 0 12px;
+      }
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .support-ticket-table {
+    &__table {
+      tr {
+        padding: $space-md;
+      }
+
+      td {
+        grid-template-columns: 1fr;
+        gap: 5px;
+        padding: 9px 0;
+
+        &::before {
+          font-size: 11px;
+        }
+      }
+
+      button {
+        width: 100%;
+        min-width: 100%;
+        max-width: 100%;
+      }
+    }
   }
 }

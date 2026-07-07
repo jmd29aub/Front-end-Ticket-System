@@ -1,78 +1,45 @@
-<script setup lang="ts">
-import { computed, ref } from "vue";
-import { useRoute, useRouter } from "vue-router";
-import AppButton from "@/components/ui/AppButton/AppButton.vue";
-import AppIcon from "@/components/ui/AppIcon/AppIcon.vue";
-import StatusBadge from "@/components/ui/StatusBadge/StatusBadge.vue";
-import PriorityBadge from "@/components/ui/PriorityBadge/PriorityBadge.vue";
-import { tickets } from "@/data/tickets";
+<script lang="ts" src="./TicketDetailsPage.ts"></script>
 
-const route = useRoute();
-const router = useRouter();
-
-const replyMessage = ref("");
-const replyAttachmentName = ref("");
-const replyFileInput = ref<HTMLInputElement | null>(null);
-
-const ticketId = computed(() => String(route.params.id));
-
-const ticket = computed(() => {
-  return tickets.find((item) => item.id.replace("#", "") === ticketId.value.replace("#", ""));
-});
-
-const isResolved = computed(() => ticket.value?.status === "Resolved");
-
-function goBackToDashboard() {
-  router.push({ name: "client-dashboard" });
-}
-
-function handleSignOut() {
-  router.push({ name: "login" });
-}
-
-function openReplyAttachment() {
-  replyFileInput.value?.click();
-}
-
-function handleReplyAttachmentChange(event: Event) {
-  const target = event.target as HTMLInputElement;
-  const file = target.files?.[0];
-
-  if (file) {
-    replyAttachmentName.value = file.name;
-  }
-}
-
-function handleSendReply() {
-  console.log({
-    message: replyMessage.value,
-    attachment: replyAttachmentName.value,
-  });
-
-  replyMessage.value = "";
-  replyAttachmentName.value = "";
-}
-</script>
 
 <template>
   <main class="ticket-details">
-    <section class="ticket-details__shell">
-      <header class="ticket-details__navbar">
+    <section
+      class="ticket-details__shell"
+      :class="{ 'ticket-details__shell--collapsed': !isSidebarOpen }"
+    >
+      <header class="ticket-details__sidebar-header">
         <div class="ticket-details__brand-group">
-          <div class="ticket-details__brand-icon">
+          <button class="ticket-details__brand-icon" type="button" @click="goToDashboard">
             <AppIcon name="tickets" :size="20" />
-          </div>
+          </button>
 
           <h1 class="ticket-details__brand">Support Ticket System</h1>
         </div>
+      </header>
 
+      <header class="ticket-details__topbar">
         <nav class="ticket-details__nav">
-          <button class="ticket-details__notification" type="button">
-            <AppIcon name="notification" :size="22" />
-            <span>2</span>
+          <div ref="notificationAreaRef" class="ticket-details__notification-area">
+            <NotificationDropdown
+              :is-open="isNotificationMenuOpen"
+              :notifications="notifications"
+              :unread-count="unreadNotificationsCount"
+              :count-label="notificationCountLabel"
+              :is-loading="isLoadingNotifications"
+              :error-message="notificationErrorMessage"
+              :format-time="formatNotificationTime"
+              @toggle="handleToggleNotificationMenu"
+              @mark-all-read="handleMarkAllNotificationsRead"
+              @notification-click="handleNotificationClick"
+            />
+          </div>
+          <button
+            class="ticket-details__profile"
+            type="button"
+            @click="goToClientDashboardSection('profile')"
+          >
+            Profile
           </button>
-
-          <a href="#" class="ticket-details__profile">Profile</a>
 
           <button class="ticket-details__sign-out" type="button" @click="handleSignOut">
             <AppIcon name="sign-out" :size="18" />
@@ -81,9 +48,106 @@ function handleSendReply() {
         </nav>
       </header>
 
-      <div class="ticket-details__accent-line"></div>
+      <AccentLine class="ticket-details__accent-line" />
 
-      <template v-if="ticket">
+      <button
+        class="ticket-details__sidebar-toggle"
+        type="button"
+        :aria-label="isSidebarOpen ? 'Collapse sidebar' : 'Open sidebar'"
+        @click="toggleSidebar"
+      >
+        <span></span>
+        <span></span>
+        <span></span>
+      </button>
+
+      <aside class="ticket-details__sidebar">
+        <nav class="ticket-details__sidebar-nav">
+          <button
+            class="ticket-details__sidebar-link"
+            type="button"
+            title="Dashboard"
+            @click="goToDashboard"
+          >
+            <span class="ticket-details__sidebar-icon">
+              <AppIcon name="tickets" :size="22" />
+            </span>
+
+            <span class="ticket-details__sidebar-text">Dashboard</span>
+          </button>
+
+          <button
+            class="ticket-details__sidebar-link"
+            type="button"
+            title="Create Ticket"
+            @click="goToCreateTicket"
+          >
+            <span class="ticket-details__sidebar-icon">
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M12 5V19"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M5 12H19"
+                  stroke="currentColor"
+                  stroke-width="2.2"
+                  stroke-linecap="round"
+                />
+              </svg>
+            </span>
+
+            <span class="ticket-details__sidebar-text">Create Ticket</span>
+          </button>
+
+          <button
+            class="ticket-details__sidebar-link"
+            type="button"
+            title="History"
+            @click="goToClientDashboardSection('history')"
+          >
+            <span class="ticket-details__sidebar-icon">
+              <AppIcon name="clock" :size="22" />
+            </span>
+
+            <span class="ticket-details__sidebar-text">History</span>
+          </button>
+
+          <button
+            class="ticket-details__sidebar-link"
+            type="button"
+            title="Notification Center"
+            @click="goToClientDashboardSection('notifications')"
+          >
+            <span class="ticket-details__sidebar-icon">
+              <AppIcon name="notification" :size="22" />
+            </span>
+
+            <span class="ticket-details__sidebar-text">Notification Center</span>
+          </button>
+
+          <button
+            class="ticket-details__sidebar-link"
+            type="button"
+            title="Settings"
+            @click="goToClientDashboardSection('settings')"
+          >
+            <span class="ticket-details__sidebar-icon">
+              <AppIcon name="settings" :size="22" />
+            </span>
+
+            <span class="ticket-details__sidebar-text">Settings</span>
+          </button>
+        </nav>
+      </aside>
+
+      <section v-if="isLoading" class="ticket-details__not-found">
+        <h2>Loading ticket...</h2>
+      </section>
+
+      <template v-else-if="ticket">
         <section class="ticket-details__page-header">
           <div>
             <h2 class="ticket-details__page-title">Ticket #{{ ticket.id }} - {{ ticket.title }}</h2>
@@ -93,7 +157,9 @@ function handleSendReply() {
             </p>
           </div>
 
-          <AppButton label="← Back to Dashboard" variant="secondary" @click="goBackToDashboard" />
+          <div class="ticket-details__header-actions">
+            <AppButton label="← Back to Dashboard" variant="secondary" @click="goBackToDashboard" />
+          </div>
         </section>
 
         <section class="ticket-details__content">
@@ -188,13 +254,48 @@ function handleSendReply() {
             <section class="ticket-details__conversation">
               <h4 class="ticket-details__section-title">Conversation</h4>
 
-              <div class="ticket-details__message">
-                <div class="ticket-details__avatar">{{ ticket.client }}</div>
+              <div ref="conversationList" class="ticket-details__messages-panel">
+                <TransitionGroup
+                  name="message-pop"
+                  tag="div"
+                  class="ticket-details__messages-stack"
+                >
+                  <div
+                    v-for="message in ticket.conversation"
+                    :key="message.id"
+                    class="ticket-details__message"
+                    :class="{
+                      'ticket-details__message--client': message.side === 'client',
+                      'ticket-details__message--support': message.side === 'support',
+                    }"
+                  >
+                    <div v-if="message.side === 'support'" class="ticket-details__avatar">
+                      {{ message.avatar }}
+                    </div>
 
-                <div class="ticket-details__message-bubble">
-                  <span>Support team</span>
-                  <strong>How can we help you?</strong>
-                </div>
+                    <div
+                      class="ticket-details__message-bubble"
+                      :class="{
+                        'ticket-details__message-bubble--client': message.side === 'client',
+                        'ticket-details__message-bubble--sending': message.sendStatus === 'sending',
+                        'ticket-details__message-bubble--failed': message.sendStatus === 'failed',
+                      }"
+                    >
+                      <span>{{ message.senderLabel }}</span>
+                      <strong>{{ message.message }}</strong>
+
+                      <small v-if="message.sendStatus === 'sending'">Sending...</small>
+                      <small v-if="message.sendStatus === 'failed'">Failed to send</small>
+                    </div>
+
+                    <div
+                      v-if="message.side === 'client'"
+                      class="ticket-details__avatar ticket-details__avatar--client"
+                    >
+                      {{ message.avatar }}
+                    </div>
+                  </div>
+                </TransitionGroup>
               </div>
 
               <input
@@ -219,16 +320,21 @@ function handleSendReply() {
                   class="ticket-details__reply-input"
                   type="text"
                   placeholder="Write a reply"
+                  @keydown.enter.prevent="handleSendReply"
                 />
 
                 <button class="ticket-details__reply-button" type="button" @click="handleSendReply">
                   <AppIcon name="send" :size="15" />
-                  Send Reply
+                  {{ isSendingReply ? "Sending..." : "Send Reply" }}
                 </button>
               </div>
 
               <p v-if="replyAttachmentName" class="ticket-details__attachment-name">
                 Attached file: {{ replyAttachmentName }}
+              </p>
+
+              <p v-if="replyErrorMessage" class="ticket-details__reply-error">
+                {{ replyErrorMessage }}
               </p>
             </section>
           </article>
@@ -284,7 +390,9 @@ function handleSendReply() {
               <div class="ticket-details__response-list">
                 <div class="ticket-details__summary-row">
                   <span class="ticket-details__summary-label">Expected response</span>
-                  <strong class="ticket-details__summary-text">8 hours</strong>
+                  <strong class="ticket-details__summary-text">
+                    {{ ticket.expectedResponseTime }}
+                  </strong>
                 </div>
 
                 <div class="ticket-details__summary-row">
@@ -307,594 +415,209 @@ function handleSendReply() {
 
               <p>Use the reply box to send more details or attach additional screenshots.</p>
             </article>
+
+            <article class="ticket-details__side-card ticket-details__danger-card">
+              <div class="ticket-details__side-header">
+                <div class="ticket-details__side-icon ticket-details__side-icon--danger">
+                  <svg
+                    width="22"
+                    height="22"
+                    viewBox="0 0 24 24"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                    aria-hidden="true"
+                  >
+                    <path
+                      d="M3 6H21"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M8 6V4C8 3.44772 8.44772 3 9 3H15C15.5523 3 16 3.44772 16 4V6"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M19 6L18.2 19.2C18.1385 20.2156 17.2967 21 16.2793 21H7.72074C6.70331 21 5.86147 20.2156 5.8 19.2L5 6"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M10 11V17"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      d="M14 11V17"
+                      stroke="currentColor"
+                      stroke-width="2"
+                      stroke-linecap="round"
+                    />
+                  </svg>
+                </div>
+
+                <h3>Delete Ticket</h3>
+              </div>
+
+              <p>
+                Delete this ticket only if it was created by mistake. A confirmation message will
+                appear before deleting.
+              </p>
+
+              <button class="ticket-details__delete-button" type="button" @click="openDeleteModal">
+                <svg
+                  width="15"
+                  height="15"
+                  viewBox="0 0 24 24"
+                  fill="none"
+                  xmlns="http://www.w3.org/2000/svg"
+                  aria-hidden="true"
+                >
+                  <path d="M3 6H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                  <path
+                    d="M8 6V4C8 3.44772 8.44772 3 9 3H15C15.5523 3 16 3.44772 16 4V6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M19 6L18.2 19.2C18.1385 20.2156 17.2967 21 16.2793 21H7.72074C6.70331 21 5.86147 20.2156 5.8 19.2L5 6"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M10 11V17"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                  <path
+                    d="M14 11V17"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+
+                <span>Delete Ticket</span>
+              </button>
+            </article>
           </aside>
         </section>
       </template>
 
       <section v-else class="ticket-details__not-found">
         <h2>Ticket not found</h2>
-        <p>The ticket you are trying to view does not exist.</p>
+        <p>{{ errorMessage || "The ticket you are trying to view does not exist." }}</p>
 
         <AppButton label="Back to Dashboard" variant="secondary" @click="goBackToDashboard" />
       </section>
+
+      <div v-if="isDeleteModalOpen" class="ticket-details__modal-overlay">
+        <section class="ticket-details__delete-modal">
+          <div class="ticket-details__modal-icon">
+            <svg
+              width="28"
+              height="28"
+              viewBox="0 0 24 24"
+              fill="none"
+              xmlns="http://www.w3.org/2000/svg"
+              aria-hidden="true"
+            >
+              <path d="M3 6H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <path
+                d="M8 6V4C8 3.44772 8.44772 3 9 3H15C15.5523 3 16 3.44772 16 4V6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <path
+                d="M19 6L18.2 19.2C18.1385 20.2156 17.2967 21 16.2793 21H7.72074C6.70331 21 5.86147 20.2156 5.8 19.2L5 6"
+                stroke="currentColor"
+                stroke-width="2"
+                stroke-linecap="round"
+              />
+              <path d="M10 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              <path d="M14 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+            </svg>
+          </div>
+
+          <h2>Delete this ticket?</h2>
+
+          <p>
+            This action cannot be undone. Please confirm that you really want to delete ticket #{{
+              ticket?.id
+            }}.
+          </p>
+
+          <div v-if="requiresDeleteReason" class="ticket-details__reason-group">
+            <label for="deleteReason">Reason required because this ticket is not open</label>
+
+            <textarea
+              id="deleteReason"
+              v-model="deleteReason"
+              placeholder="Write why this ticket needs to be deleted..."
+            ></textarea>
+          </div>
+
+          <p v-else class="ticket-details__open-delete-note">
+            This ticket is still open, so no reason is required.
+          </p>
+
+          <p v-if="deleteErrorMessage" class="ticket-details__delete-error">
+            {{ deleteErrorMessage }}
+          </p>
+
+          <div class="ticket-details__modal-actions">
+            <button class="ticket-details__modal-cancel" type="button" @click="closeDeleteModal">
+              Cancel
+            </button>
+
+            <button
+              class="ticket-details__modal-confirm"
+              type="button"
+              :disabled="isDeletingTicket"
+              @click="confirmDeleteTicket"
+            >
+              <svg
+                width="15"
+                height="15"
+                viewBox="0 0 24 24"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+                aria-hidden="true"
+              >
+                <path d="M3 6H21" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path
+                  d="M8 6V4C8 3.44772 8.44772 3 9 3H15C15.5523 3 16 3.44772 16 4V6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path
+                  d="M19 6L18.2 19.2C18.1385 20.2156 17.2967 21 16.2793 21H7.72074C6.70331 21 5.86147 20.2156 5.8 19.2L5 6"
+                  stroke="currentColor"
+                  stroke-width="2"
+                  stroke-linecap="round"
+                />
+                <path d="M10 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                <path d="M14 11V17" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+              </svg>
+
+              <span>{{ isDeletingTicket ? "Deleting..." : "Yes, Delete Ticket" }}</span>
+            </button>
+          </div>
+        </section>
+      </div>
     </section>
   </main>
 </template>
 
 <style scoped lang="scss">
-@use "@/styles/variables" as *;
-
-.ticket-details {
-  min-height: 100vh;
-  background-color: $color-background;
-  padding: 0;
-  display: block;
-  box-sizing: border-box;
-
-  &__shell {
-    width: 100%;
-    min-height: 100vh;
-    background-color: $color-background;
-  }
-
-  &__navbar {
-    height: $navbar-height;
-    background-color: $color-surface;
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    padding: 0 $page-padding-x;
-    box-sizing: border-box;
-  }
-
-  &__brand-group {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-  }
-
-  &__brand-icon {
-    width: 32px;
-    height: 32px;
-    border-radius: $radius-md;
-    background-color: $color-secondary;
-    color: $color-primary;
-    display: grid;
-    place-items: center;
-    flex-shrink: 0;
-  }
-
-  &__brand {
-    margin: 0;
-    font-family: $font-main;
-    color: $color-main-text;
-    font-size: $font-size-md;
-    font-weight: 700;
-    line-height: 1.2;
-    white-space: nowrap;
-  }
-
-  &__nav {
-    height: 100%;
-    display: flex;
-    align-items: center;
-    gap: 64px;
-  }
-
-  &__notification {
-    border: none;
-    background: transparent;
-    color: $color-main-text;
-    cursor: pointer;
-    position: relative;
-    padding: 0;
-    display: grid;
-    place-items: center;
-
-    span {
-      position: absolute;
-      top: -5px;
-      right: -8px;
-      width: 12px;
-      height: 12px;
-      border-radius: 50%;
-      background-color: $color-secondary;
-      color: $color-primary;
-      font-size: 8px;
-      font-weight: 800;
-      display: grid;
-      place-items: center;
-    }
-  }
-
-  &__profile {
-    color: $color-secondary-text;
-    text-decoration: none;
-    font-size: $font-size-sm;
-    font-weight: 600;
-  }
-
-  &__sign-out {
-    border: none;
-    background: transparent;
-    color: $color-secondary;
-    font-size: $font-size-sm;
-    font-weight: 700;
-    cursor: pointer;
-    padding-left: $space-lg;
-    border-left: 1px solid $color-border;
-    display: inline-flex;
-    align-items: center;
-    gap: $space-xs;
-    white-space: nowrap;
-  }
-
-  &__accent-line {
-    height: $accent-line-height;
-    background-color: $color-secondary;
-  }
-
-  &__page-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: $page-header-padding-top $page-padding-x $page-header-padding-bottom;
-  }
-
-  &__page-title {
-    margin: 0;
-    color: $color-main-text;
-    font-size: $page-title-size;
-    font-weight: 800;
-  }
-
-  &__page-subtitle {
-    margin: $page-subtitle-margin-top 0 0;
-    color: $color-secondary-text;
-    font-size: $page-subtitle-size;
-    font-weight: 600;
-  }
-
-  &__content {
-    display: grid;
-    grid-template-columns: 1fr 325px;
-    gap: $space-md;
-    padding: 0 $page-padding-x $space-xl;
-    align-items: stretch;
-  }
-
-  &__main-card {
-    min-height: 552px;
-    background-color: $color-surface;
-    border: $card-border;
-    border-radius: $card-radius;
-    padding: 30px 34px 24px;
-    box-sizing: border-box;
-  }
-
-  &__main-header {
-    display: flex;
-    justify-content: space-between;
-    align-items: flex-start;
-    gap: $space-lg;
-  }
-
-  &__ticket-title {
-    margin: 0;
-    color: $color-main-text;
-    font-size: 20px;
-    font-weight: 800;
-  }
-
-  &__meta {
-    margin-top: $space-md;
-    display: flex;
-    align-items: center;
-    gap: $space-md;
-    color: $color-secondary-text;
-    font-size: 12px;
-    font-weight: 600;
-  }
-
-  &__meta-dot {
-    width: 5px;
-    height: 5px;
-    background-color: $color-secondary;
-    border-radius: 50%;
-  }
-
-  &__badges {
-    display: flex;
-    align-items: center;
-    gap: $space-sm;
-    padding-top: 4px;
-  }
-
-  &__divider {
-    height: 1px;
-    background-color: $color-border;
-    margin: 18px 0 22px;
-  }
-
-  &__section-title {
-    margin: 0;
-    color: $color-main-text;
-    font-size: 17px;
-    font-weight: 800;
-  }
-
-  &__progress {
-    margin-top: 34px;
-    display: grid;
-    grid-template-columns: 52px 1fr 52px 1fr 52px 1fr 52px;
-    align-items: start;
-  }
-
-  &__step {
-    text-align: center;
-    display: flex;
-    flex-direction: column;
-    align-items: center;
-
-    strong {
-      margin-top: 14px;
-      color: $color-main-text;
-      font-size: 13px;
-      font-weight: 800;
-    }
-
-    span {
-      margin-top: 4px;
-      color: $color-secondary-text;
-      font-size: 9px;
-      font-weight: 600;
-      white-space: nowrap;
-    }
-
-    &--active {
-      strong {
-        color: $color-secondary;
-      }
-    }
-  }
-
-  &__step-circle {
-    width: 50px;
-    height: 50px;
-    border-radius: 50%;
-    border: 1px solid #cbd5e1;
-    background-color: $color-surface;
-    color: $color-secondary;
-    display: grid;
-    place-items: center;
-    font-size: 18px;
-    font-weight: 900;
-  }
-
-  &__step--done &__step-circle,
-  &__step--active &__step-circle {
-    background-color: $color-secondary;
-    border-color: $color-secondary;
-    color: $color-primary;
-  }
-
-  &__line {
-    height: 3px;
-    background-color: #6b7280;
-    margin-top: 24px;
-
-    &--done {
-      background-color: $color-secondary;
-    }
-  }
-
-  &__description {
-    margin-top: 38px;
-  }
-
-  &__description-box {
-    margin-top: $space-md;
-    min-height: 34px;
-    background-color: #e5e7eb;
-    border-radius: $radius-md;
-    color: #000000;
-    font-size: 12px;
-    font-weight: 500;
-    padding: 10px $space-md;
-  }
-
-  &__conversation {
-    margin-top: 42px;
-  }
-
-  &__message {
-    margin-top: $space-lg;
-    display: flex;
-    align-items: center;
-    gap: $space-sm;
-  }
-
-  &__avatar {
-    width: 48px;
-    height: 48px;
-    border-radius: 50%;
-    background-color: rgba($color-secondary, 0.12);
-    color: #000000;
-    display: grid;
-    place-items: center;
-    font-size: 18px;
-    font-weight: 700;
-  }
-
-  &__message-bubble {
-    min-width: 205px;
-    min-height: 52px;
-    background-color: #e5e7eb;
-    border-radius: $radius-md;
-    padding: 9px $space-md;
-
-    span {
-      display: block;
-      color: $color-secondary-text;
-      font-size: 9px;
-      font-weight: 800;
-    }
-
-    strong {
-      display: block;
-      margin-top: 4px;
-      color: $color-main-text;
-      font-size: 12px;
-      font-weight: 800;
-    }
-  }
-
-  &__file-input {
-    display: none;
-  }
-
-  &__reply {
-    margin-top: 46px;
-    display: grid;
-    grid-template-columns: 42px 1fr 136px;
-    gap: $space-sm;
-  }
-
-  &__attach-button,
-  &__reply-input,
-  &__reply-button {
-    height: 38px;
-    border-radius: $radius-md;
-  }
-
-  &__attach-button {
-    border: 1px solid #cbd5e1;
-    background-color: $color-surface;
-    color: $color-secondary-text;
-    cursor: pointer;
-    display: grid;
-    place-items: center;
-
-    &:hover {
-      border-color: $color-secondary;
-      color: $color-secondary;
-      background-color: rgba($color-secondary, 0.04);
-    }
-  }
-
-  &__reply-input {
-    border: 1px solid #cbd5e1;
-    padding: 0 $space-md;
-    font-size: 12px;
-    outline: none;
-
-    &::placeholder {
-      color: #9ca3af;
-    }
-
-    &:focus {
-      border-color: $color-secondary;
-    }
-  }
-
-  &__reply-button {
-    border: 1px solid $color-secondary;
-    background-color: $color-secondary;
-    color: $color-primary;
-    font-size: 12px;
-    font-weight: 800;
-    cursor: pointer;
-    display: inline-flex;
-    align-items: center;
-    justify-content: center;
-    gap: 6px;
-  }
-
-  &__attachment-name {
-    margin: $space-sm 0 0 50px;
-    color: $color-secondary;
-    font-size: 11px;
-    font-weight: 700;
-  }
-
-  &__side {
-    display: flex;
-    flex-direction: column;
-    gap: $space-md;
-    height: 100%;
-    align-self: stretch;
-  }
-
-  &__side-card {
-    background-color: $color-surface;
-    border: $card-border;
-    border-radius: $card-radius;
-    padding: 24px;
-    box-sizing: border-box;
-  }
-
-  &__summary-card {
-    min-height: 216px;
-  }
-
-  &__response-card {
-    min-height: 164px;
-  }
-
-  &__info-card {
-    flex: 1;
-    min-height: 140px;
-  }
-
-  &__side-header {
-    display: flex;
-    align-items: center;
-    gap: $space-md;
-
-    h3 {
-      margin: 0;
-      color: $color-main-text;
-      font-size: 17px;
-      font-weight: 800;
-      line-height: 1.25;
-    }
-  }
-
-  &__side-icon {
-    width: 46px;
-    height: 46px;
-    border-radius: 50%;
-    background-color: rgba($color-secondary, 0.12);
-    color: $color-secondary;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-  }
-
-  &__side-icon :deep(svg) {
-    display: block;
-  }
-
-  &__summary-list,
-  &__response-list {
-    margin-top: $space-lg;
-    display: flex;
-    flex-direction: column;
-    gap: $space-md;
-  }
-
-  &__summary-row {
-    display: grid;
-    grid-template-columns: 105px 1fr;
-    align-items: center;
-    gap: $space-sm;
-  }
-
-  &__summary-label {
-    color: $color-secondary-text;
-    font-size: 12px;
-    font-weight: 700;
-  }
-
-  &__summary-text {
-    color: $color-secondary-text;
-    font-size: 10px;
-    font-weight: 800;
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  &__summary-value {
-    display: flex;
-    justify-content: flex-end;
-  }
-
-  &__purple-text {
-    color: $color-secondary;
-    font-size: 12px;
-    font-weight: 800;
-    text-align: right;
-    white-space: nowrap;
-  }
-
-  &__note {
-    margin: 26px 0 0;
-    text-align: center;
-    color: $color-secondary-text;
-    font-size: 10px;
-    font-weight: 600;
-  }
-
-  &__info-card p {
-    margin: 24px 0 0;
-    color: $color-secondary-text;
-    font-size: 12px;
-    font-weight: 600;
-    line-height: 1.5;
-  }
-
-  &__not-found {
-    padding: $space-xl;
-    text-align: center;
-
-    h2 {
-      margin: 0;
-      color: $color-main-text;
-      font-size: $page-title-size;
-    }
-
-    p {
-      color: $color-secondary-text;
-      font-size: $font-size-sm;
-    }
-  }
-}
-
-@media (max-width: 900px) {
-  .ticket-details {
-    padding: 0;
-
-    &__navbar,
-    &__page-header {
-      height: auto;
-      flex-direction: column;
-      align-items: flex-start;
-      gap: $space-md;
-      padding: $space-lg;
-    }
-
-    &__nav {
-      height: auto;
-      gap: $space-lg;
-      flex-wrap: wrap;
-    }
-
-    &__content {
-      grid-template-columns: 1fr;
-      padding: $space-lg;
-    }
-
-    &__side {
-      height: auto;
-    }
-
-    &__progress {
-      grid-template-columns: 1fr;
-      gap: $space-md;
-    }
-
-    &__line {
-      display: none;
-    }
-
-    &__reply {
-      grid-template-columns: 1fr;
-    }
-
-    &__attachment-name {
-      margin-left: 0;
-    }
-  }
-}
+@use "./TicketDetailsPage.scss";
 </style>

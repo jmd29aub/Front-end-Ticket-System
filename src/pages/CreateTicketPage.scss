@@ -1,0 +1,872 @@
+@use "@/styles/variables" as *;
+
+.create-ticket {
+  height: 100vh;
+  min-height: 100vh;
+  background-color: $color-background;
+  padding: 0;
+  display: block;
+  box-sizing: border-box;
+  overflow: hidden;
+
+  &,
+  * {
+    box-sizing: border-box;
+  }
+
+  &__shell {
+    position: relative;
+    width: 100%;
+    height: 100vh;
+    min-height: 0;
+    background-color: $color-background;
+    display: grid;
+    grid-template-columns: minmax(0, 258px) minmax(0, 1fr);
+    grid-template-rows: $navbar-height $accent-line-height minmax(0, 1fr);
+    overflow: hidden;
+    transition: grid-template-columns 0.25s ease;
+
+    &--collapsed {
+      grid-template-columns: minmax(0, 88px) minmax(0, 1fr);
+
+      .create-ticket__sidebar-header {
+        padding: 0;
+        justify-content: center;
+      }
+
+      .create-ticket__brand-group {
+        justify-content: center;
+      }
+
+      .create-ticket__brand {
+        position: absolute;
+        top: calc(#{$navbar-height} / 2);
+        left: 120px;
+        margin: 0;
+        display: block;
+        color: $color-main-text;
+        font-size: $font-size-md;
+        font-weight: 700;
+        white-space: nowrap;
+        transform: translateY(-50%);
+        z-index: 60;
+      }
+
+      .create-ticket__sidebar-toggle {
+        left: 23px;
+      }
+
+      .create-ticket__sidebar-nav {
+        padding-top: 90px;
+        gap: 28px;
+        align-items: center;
+      }
+
+      .create-ticket__sidebar-link {
+        width: 44px;
+        height: 44px;
+        padding: 0;
+        justify-content: center;
+        border-radius: $radius-md;
+        gap: 0;
+      }
+
+      .create-ticket__sidebar-icon {
+        width: 44px;
+        color: $color-secondary;
+      }
+
+      .create-ticket__sidebar-text {
+        display: none;
+      }
+    }
+  }
+
+  &__sidebar-header {
+    grid-column: 1;
+    grid-row: 1;
+    min-width: 0;
+    background-color: $color-surface;
+    border-right: 1px solid $color-border;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    gap: $space-sm;
+    padding: 0 10px;
+    overflow: hidden;
+    z-index: 30;
+  }
+
+  &__topbar {
+    grid-column: 2;
+    grid-row: 1;
+    min-width: 0;
+    height: $navbar-height;
+    background-color: $color-surface;
+    display: flex;
+    align-items: center;
+    justify-content: flex-end;
+    padding: 0 clamp(20px, 2.3vw, #{$page-padding-x});
+  }
+
+  &__brand-group {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+    min-width: 0;
+  }
+
+  &__brand-icon {
+    width: 32px;
+    height: 32px;
+    border: none;
+    border-radius: $radius-md;
+    background-color: $color-secondary;
+    color: $color-primary;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+    cursor: pointer;
+    padding: 0;
+  }
+
+  &__brand {
+    margin: 0;
+    min-width: 0;
+    color: $color-main-text;
+    font-size: $font-size-md;
+    font-weight: 700;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__nav {
+    height: 100%;
+    display: flex;
+    align-items: center;
+    gap: clamp(22px, 4.2vw, 64px);
+  }
+
+  &__notification-area {
+    position: relative;
+    display: grid;
+    place-items: center;
+  }
+
+  &__notification {
+    border: none;
+    background: transparent;
+    color: $color-main-text;
+    cursor: pointer;
+    position: relative;
+    padding: 0;
+    display: grid;
+    place-items: center;
+
+    span {
+      position: absolute;
+      top: -7px;
+      right: -11px;
+      min-width: 16px;
+      height: 16px;
+      padding: 0 4px;
+      border-radius: 999px;
+      background-color: $color-secondary;
+      color: $color-primary;
+      font-size: 8px;
+      font-weight: 800;
+      display: grid;
+      place-items: center;
+      line-height: 1;
+    }
+  }
+
+  &__notification-menu {
+    position: absolute;
+    top: calc(100% + 18px);
+    right: -24px;
+    width: 360px;
+    max-height: 430px;
+    background-color: $color-surface;
+    border: 1px solid $color-border;
+    border-radius: $radius-lg;
+    box-shadow: $shadow-md;
+    z-index: 300;
+    overflow: hidden;
+  }
+
+  &__notification-menu-header {
+    min-height: 72px;
+    padding: 16px 18px;
+    border-bottom: 1px solid $color-border;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-md;
+
+    h3 {
+      margin: 0;
+      color: $color-main-text;
+      font-size: $font-size-sm;
+      font-weight: 900;
+    }
+
+    p {
+      margin: 5px 0 0;
+      color: $color-secondary-text;
+      font-size: 11px;
+      font-weight: 700;
+    }
+
+    button {
+      border: none;
+      background: transparent;
+      color: $color-secondary;
+      font-size: 11px;
+      font-weight: 900;
+      cursor: pointer;
+      white-space: nowrap;
+
+      &:disabled {
+        color: $color-secondary-text;
+        cursor: not-allowed;
+        opacity: 0.6;
+      }
+    }
+  }
+
+  &__notification-list {
+    max-height: 330px;
+    overflow-y: auto;
+  }
+
+  &__notification-item {
+    width: 100%;
+    border: none;
+    border-bottom: 1px solid $color-border;
+    background-color: $color-surface;
+    padding: 14px 18px;
+    display: grid;
+    grid-template-columns: 8px minmax(0, 1fr);
+    gap: 12px;
+    text-align: left;
+    cursor: pointer;
+
+    &:hover {
+      background-color: rgba($color-secondary, 0.04);
+    }
+
+    &:last-child {
+      border-bottom: none;
+    }
+
+    &--unread {
+      background-color: rgba($color-secondary, 0.06);
+    }
+  }
+
+  &__notification-dot {
+    width: 8px;
+    height: 8px;
+    margin-top: 5px;
+    border-radius: 50%;
+    background-color: transparent;
+  }
+
+  &__notification-item--unread &__notification-dot {
+    background-color: $color-secondary;
+  }
+
+  &__notification-content {
+    min-width: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 5px;
+
+    .create-ticket__notification-label {
+      align-self: flex-start;
+      min-height: 18px;
+      padding: 0 8px;
+      border-radius: 999px;
+      background-color: rgba($color-secondary, 0.1);
+      color: $color-secondary;
+      font-size: 10px;
+      font-weight: 900;
+      line-height: 18px;
+    }
+
+    strong {
+      color: $color-main-text;
+      font-size: 13px;
+      font-weight: 900;
+      line-height: 1.25;
+    }
+
+    small {
+      color: $color-secondary-text;
+      font-size: 12px;
+      font-weight: 600;
+      line-height: 1.45;
+    }
+
+    em {
+      color: $color-secondary;
+      font-size: 11px;
+      font-style: normal;
+      font-weight: 800;
+    }
+  }
+
+  &__notification-empty,
+  &__notification-error {
+    margin: 0;
+    padding: 22px 18px;
+    color: $color-secondary-text;
+    font-size: 13px;
+    font-weight: 700;
+    text-align: center;
+  }
+
+  &__notification-error {
+    color: $color-danger;
+  }
+
+  &__nav-link {
+    border: none;
+    background: transparent;
+    color: $color-secondary-text;
+    text-decoration: none;
+    font-size: $font-size-sm;
+    font-weight: 600;
+    cursor: pointer;
+    white-space: nowrap;
+  }
+
+  &__sign-out {
+    border: none;
+    background: transparent;
+    color: $color-secondary;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    cursor: pointer;
+    padding-left: $space-lg;
+    border-left: 1px solid $color-border;
+    display: inline-flex;
+    align-items: center;
+    gap: $space-xs;
+    white-space: nowrap;
+  }
+
+  &__accent-line {
+    grid-column: 1 / -1;
+    grid-row: 2;
+    height: $accent-line-height;
+    background-color: $color-secondary;
+  }
+
+  &__sidebar-toggle {
+    position: absolute;
+    top: calc(#{$navbar-height} + #{$accent-line-height} + 22px);
+    left: 237px;
+    z-index: 40;
+    width: 42px;
+    height: 42px;
+    border: 1px solid $color-border;
+    border-radius: $radius-md;
+    background-color: $color-surface;
+    color: $color-secondary;
+    box-shadow: $shadow-sm;
+    cursor: pointer;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    gap: 5px;
+    transition: 0.25s ease;
+
+    span {
+      width: 18px;
+      height: 2px;
+      border-radius: 999px;
+      background-color: $color-secondary;
+      display: block;
+    }
+
+    &:hover {
+      border-color: $color-secondary;
+      background-color: rgba($color-secondary, 0.06);
+      box-shadow: $shadow-md;
+    }
+  }
+
+  &__sidebar {
+    grid-column: 1;
+    grid-row: 3;
+    min-width: 0;
+    background-color: $color-surface;
+    border-right: 1px solid $color-border;
+    overflow: hidden;
+  }
+
+  &__sidebar-nav {
+    padding-top: 42px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+  }
+
+  &__sidebar-link {
+    min-width: 0;
+    min-height: 44px;
+    border: none;
+    background: transparent;
+    display: flex;
+    align-items: center;
+    gap: 18px;
+    padding: 0 24px;
+    color: $color-main-text;
+    text-decoration: none;
+    font-size: $font-size-sm;
+    font-weight: 700;
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover,
+    &--active {
+      color: $color-secondary;
+      background-color: rgba($color-secondary, 0.06);
+    }
+  }
+
+  &__sidebar-icon {
+    width: 22px;
+    color: $color-secondary-text;
+    display: grid;
+    place-items: center;
+    flex-shrink: 0;
+
+    svg {
+      width: 22px;
+      height: 22px;
+    }
+  }
+
+  &__sidebar-link--active &__sidebar-icon,
+  &__sidebar-link:hover &__sidebar-icon {
+    color: $color-secondary;
+  }
+
+  &__sidebar-text {
+    min-width: 0;
+    white-space: nowrap;
+    overflow: hidden;
+    text-overflow: ellipsis;
+  }
+
+  &__main-scroll {
+    grid-column: 2;
+    grid-row: 3;
+    min-width: 0;
+    min-height: 0;
+    overflow-y: auto;
+    overflow-x: hidden;
+    padding-bottom: $space-xl;
+  }
+
+  &__header {
+    min-width: 0;
+    display: flex;
+    align-items: center;
+    justify-content: space-between;
+    gap: $space-lg;
+    padding: $page-header-padding-top clamp(20px, 2.3vw, #{$page-padding-x})
+      $page-header-padding-bottom;
+  }
+
+  &__title {
+    margin: 0;
+    color: $color-main-text;
+    font-size: $page-title-size;
+    font-weight: 800;
+  }
+
+  &__subtitle {
+    margin: $page-subtitle-margin-top 0 0;
+    color: $color-secondary-text;
+    font-size: $page-subtitle-size;
+    font-weight: 600;
+  }
+
+  &__content {
+    min-width: 0;
+    display: grid;
+    grid-template-columns: minmax(0, 1fr) 325px;
+    gap: $space-md;
+    padding: 0 clamp(20px, 2.3vw, #{$page-padding-x}) $space-xl;
+  }
+
+  &__form-card,
+  &__info-card,
+  &__response-card {
+    background-color: $color-surface;
+    border: $card-border;
+    border-radius: $card-radius;
+  }
+
+  &__form-card {
+    min-height: 552px;
+    padding: 30px 34px 24px;
+  }
+
+  &__form-header {
+    h3 {
+      margin: 0;
+      color: $color-main-text;
+      font-size: 20px;
+      font-weight: 800;
+    }
+
+    p {
+      margin: $space-md 0 34px;
+      color: $color-secondary-text;
+      font-size: 12px;
+      font-weight: 600;
+    }
+  }
+
+  &__form-body {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+
+  &__form-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: $space-lg;
+  }
+
+  &__file-input {
+    display: none;
+  }
+
+  &__attachment {
+    width: 100%;
+    height: 50px;
+    border: 1px dashed #cbd5e1;
+    border-radius: $radius-md;
+    background-color: #f8fafc;
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+    padding: 0 $space-md;
+    text-align: left;
+    cursor: pointer;
+    transition: 0.2s ease;
+
+    &:hover {
+      border-color: $color-secondary;
+      background-color: rgba($color-secondary, 0.04);
+    }
+
+    strong {
+      display: block;
+      color: $color-main-text;
+      font-size: 11px;
+      font-weight: 800;
+      max-width: 430px;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      white-space: nowrap;
+    }
+
+    span {
+      display: block;
+      margin-top: 2px;
+      color: $color-secondary-text;
+      font-size: 10px;
+      font-weight: 600;
+    }
+  }
+
+  &__attachment-icon {
+    color: $color-secondary;
+    display: grid;
+    place-items: center;
+  }
+
+  &__error-message {
+    height: 14px;
+    margin: -6px 0 -4px;
+    color: $color-danger;
+    font-size: 12px;
+    font-weight: 800;
+    line-height: 14px;
+    overflow: hidden;
+    white-space: nowrap;
+    text-overflow: ellipsis;
+
+    &--hidden {
+      visibility: hidden;
+    }
+  }
+
+  &__actions {
+    display: flex;
+    justify-content: flex-end;
+    gap: $space-lg;
+    margin-top: 2px;
+  }
+
+  &__actions :deep(.app-button) {
+    min-width: $button-small-min-width;
+  }
+
+  &__side {
+    display: flex;
+    flex-direction: column;
+    gap: $space-md;
+  }
+
+  &__info-card {
+    min-height: 252px;
+    padding: 24px;
+  }
+
+  &__response-card {
+    min-height: 284px;
+    padding: 24px;
+  }
+
+  &__info-header {
+    display: flex;
+    align-items: center;
+    gap: $space-md;
+
+    h3 {
+      margin: 0;
+      color: $color-main-text;
+      font-size: 17px;
+      font-weight: 800;
+    }
+  }
+
+  &__info-icon {
+    width: 48px;
+    height: 48px;
+    border-radius: 50%;
+    background-color: rgba($color-secondary, 0.12);
+    color: $color-secondary;
+    display: grid;
+    place-items: center;
+  }
+
+  &__tips {
+    margin: 32px 0 0;
+    padding-left: 18px;
+    display: flex;
+    flex-direction: column;
+    gap: 18px;
+
+    li {
+      color: $color-secondary-text;
+      font-size: 12px;
+      font-weight: 600;
+
+      &::marker {
+        color: $color-secondary;
+        font-size: 14px;
+      }
+    }
+  }
+
+  &__response-list {
+    margin-top: 34px;
+    display: flex;
+    flex-direction: column;
+    gap: 26px;
+  }
+
+  &__response-row {
+    display: grid;
+    grid-template-columns: 14px 1fr auto;
+    align-items: center;
+    gap: $space-sm;
+    color: $color-secondary-text;
+    font-size: 12px;
+    font-weight: 600;
+
+    strong {
+      color: $color-secondary-text;
+      font-size: 12px;
+      font-weight: 800;
+    }
+  }
+
+  &__dot {
+    width: 8px;
+    height: 8px;
+    border-radius: 50%;
+
+    &--high {
+      background-color: $color-danger;
+    }
+
+    &--medium {
+      background-color: $color-warning;
+    }
+
+    &--low {
+      background-color: $color-success;
+    }
+  }
+
+  &__response-note {
+    margin: 44px 0 0;
+    text-align: center;
+    color: $color-secondary-text;
+    font-size: 10px;
+    font-weight: 600;
+  }
+}
+
+@media (max-width: 1100px) {
+  .create-ticket {
+    height: auto;
+    min-height: 100vh;
+    overflow-x: hidden;
+    overflow-y: auto;
+
+    &__shell,
+    &__shell--collapsed {
+      height: auto;
+      min-height: 100vh;
+      overflow: visible;
+      grid-template-columns: 1fr;
+      grid-template-rows: auto $accent-line-height auto 1fr;
+    }
+
+    &__shell--collapsed {
+      .create-ticket__brand {
+        position: static;
+        transform: none;
+      }
+    }
+
+    &__sidebar-header {
+      grid-column: 1;
+      grid-row: 1;
+      min-height: $navbar-height;
+      border-right: none;
+      border-bottom: 1px solid $color-border;
+      padding: 0 $space-lg;
+    }
+
+    &__topbar {
+      grid-column: 1;
+      grid-row: 3;
+      height: auto;
+      min-height: $navbar-height;
+      justify-content: flex-start;
+      padding: $space-lg;
+    }
+
+    &__nav {
+      height: auto;
+      gap: $space-lg;
+      flex-wrap: wrap;
+    }
+
+    &__accent-line {
+      grid-row: 2;
+    }
+
+    &__sidebar-toggle,
+    &__sidebar {
+      display: none;
+    }
+
+    &__notification-menu {
+      left: 0;
+      right: auto;
+      width: min(360px, calc(100vw - 48px));
+    }
+
+    &__main-scroll {
+      grid-column: 1;
+      grid-row: 4;
+      min-height: 0;
+      overflow: visible;
+      padding-bottom: 0;
+    }
+
+    &__header {
+      height: auto;
+      flex-direction: column;
+      align-items: flex-start;
+      gap: $space-md;
+      padding: $space-lg;
+    }
+
+    &__content {
+      grid-template-columns: 1fr;
+      padding: $space-lg;
+    }
+
+    &__form-grid {
+      grid-template-columns: 1fr;
+    }
+
+    &__actions {
+      flex-direction: column;
+    }
+  }
+}
+
+@media (max-width: 520px) {
+  .create-ticket {
+    &__sidebar-header,
+    &__topbar,
+    &__header,
+    &__content {
+      padding-left: $space-md;
+      padding-right: $space-md;
+    }
+
+    &__brand {
+      font-size: $font-size-sm;
+    }
+
+    &__nav {
+      width: 100%;
+      justify-content: space-between;
+    }
+
+    &__nav-link {
+      display: none;
+    }
+
+    &__sign-out {
+      border-left: none;
+      padding-left: 0;
+    }
+
+    &__title {
+      font-size: 23px;
+    }
+
+    &__form-card {
+      padding: 24px 20px;
+    }
+
+    &__notification-menu {
+      width: calc(100vw - 32px);
+    }
+
+    &__notification-menu-header {
+      align-items: flex-start;
+      flex-direction: column;
+    }
+  }
+}
