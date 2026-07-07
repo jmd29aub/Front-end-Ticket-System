@@ -1,48 +1,87 @@
-# Ticket-system
+# Ticket System Frontend
 
-This template should help get you started developing with Vue 3 in Vite.
+Vue frontend for the Ticket System project.
 
-## Recommended IDE Setup
+This app provides the client and support user interfaces for creating tickets, managing tickets, replying to tickets, receiving notifications, and updating account settings.
 
-[VS Code](https://code.visualstudio.com/) + [Vue (Official)](https://marketplace.visualstudio.com/items?itemName=Vue.volar) (and disable Vetur).
+## Tech Stack
 
-## Recommended Browser Setup
+* Vue 3
+* TypeScript
+* Vite
+* SCSS
+* Laravel API backend
 
-- Chromium-based browsers (Chrome, Edge, Brave, etc.):
-  - [Vue.js devtools](https://chromewebstore.google.com/detail/vuejs-devtools/nhdogjmejiglipccpnnnanhbledajbpd)
-  - [Turn on Custom Object Formatter in Chrome DevTools](http://bit.ly/object-formatters)
-- Firefox:
-  - [Vue.js devtools](https://addons.mozilla.org/en-US/firefox/addon/vue-js-devtools/)
-  - [Turn on Custom Object Formatter in Firefox DevTools](https://fxdx.dev/firefox-devtools-custom-object-formatters/)
+## Features
 
-## Type Support for `.vue` Imports in TS
+* Client dashboard
+* Support dashboard
+* Ticket creation
+* Ticket details pages
+* Ticket edit/update flows
+* Client and support replies
+* Realtime notification dropdown
+* Notification center
+* Password change modal
+* Light/dark mode support
+* Mobile responsive layout
 
-TypeScript cannot handle type information for `.vue` imports by default, so we replace the `tsc` CLI with `vue-tsc` for type checking. In editors, we need [Volar](https://marketplace.visualstudio.com/items?itemName=Vue.volar) to make the TypeScript language service aware of `.vue` types.
+## Requirements
 
-## Customize configuration
+* Node.js
+* npm
+* Running Laravel backend API
 
-See [Vite Configuration Reference](https://vite.dev/config/).
+## Setup
 
-## Project Setup
+Install dependencies:
 
-```sh
+```bash
 npm install
 ```
 
-### Compile and Hot-Reload for Development
+Create your environment file:
 
-```sh
+```bash
+copy .env.example .env
+```
+
+Update `.env` with your backend API and realtime settings.
+
+## Run Development Server
+
+```bash
 npm run dev
 ```
 
-### Type-Check, Compile and Minify for Production
+## Build
 
-```sh
+```bash
 npm run build
 ```
 
-### Lint with [ESLint](https://eslint.org/)
+## Lint
 
-```sh
+```bash
 npm run lint
+```
+
+## Environment Variables
+
+Create a `.env` file using `.env.example` as a template.
+
+Example:
+
+```env
+VITE_API_BASE_URL=http://localhost:8000/api
+VITE_REVERB_APP_KEY=
+VITE_REVERB_HOST=localhost
+VITE_REVERB_PORT=8080
+VITE_REVERB_SCHEME=http
+```
+
+## Backend Repository
+
+```text
+https://github.com/jmd29aub/Back-End-Ticket-System
 ```
